@@ -18,8 +18,7 @@ Toimintoja:
 * varaston selaus
 * asiakastietojen lisäys, muutos, poisto ja selaus
 
-### Dokumentaatio
-* Käyttötapauskaavio
+### Käyttötapauskaavio
 ![Käyttötapauskaavio](/documentation/käyttötapauskaavio.png)
 
 ### Heroku
