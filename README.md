@@ -18,5 +18,9 @@ Toimintoja:
 * varaston selaus
 * asiakastietojen lisäys, muutos, poisto ja selaus
 
+### Dokumentaatio
+* Käyttötapauskaavio
+![Käyttötapauskaavio](/documentation/käyttötapauskaavio.png)
+
 ### Heroku
 https://tsoha-tukkuliike.herokuapp.com/
