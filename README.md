@@ -21,5 +21,8 @@ Toimintoja:
 ### Käyttötapauskaavio
 ![Käyttötapauskaavio](documentation/käyttötapauskaavio.png)
 
+### Tietokantakaavio
+![Tietokantakaavio](documentation/tietokantakaavio.png)
+
 ### Heroku
 https://tsoha-tukkuliike.herokuapp.com/
