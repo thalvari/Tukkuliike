@@ -2,13 +2,18 @@
 
 {% block body %}
 
+    <form class="form-inline mb-3" method="POST" action="{{ url_for('items_find') }}">
+        <input class="form-control mr-3" type="text" placeholder="Tuotteen nimi" name="query">
+        <button type="submit" class="btn btn-primary">Etsi</button>
+    </form>
+
     <table class="table">
         <thead class="thead-dark">
         <tr>
             <th scope="col">Nimi</th>
             <th scope="col">Hinta</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col" style="width: 5%"></th>
+            <th scope="col" style="width: 5%"></th>
         </tr>
         </thead>
         <tbody>

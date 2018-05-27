@@ -23,11 +23,6 @@
                 <a class="nav-link" href="{{ url_for('items_index') }}">Selaa tuotteita</a>
             </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0" method="POST" action="{{ url_for('items_find') }}">
-            <input class="form-control mr-sm-2" type="text" placeholder="Tuotteen nimi" aria-label="Search"
-                   name="query">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Etsi</button>
-        </form>
     </div>
 </nav>
 
