@@ -10,29 +10,35 @@ def items_index():
 
 
 @app.route("/items/new/")
-def items_form():
+def items_new_form():
     return render_template("items/new.html")
 
 
 @app.route("/items/new/", methods=["POST"])
 def items_create():
-    item = Item(request.form.get("name"), request.form.get("price"))
-    db.session.add(item)
-    db.session.commit()
+    name = request.form.get("name")
+    price = request.form.get("price")
+    if name and price and int(price) > 0:
+        item = Item(name, price)
+        db.session.add(item)
+        db.session.commit()
     return redirect(url_for("items_index"))
 
 
-@app.route("/items/change_price/<item_id>/")
-def items_change_price_form(item_id):
-    return render_template("items/change_price.html", item=Item.query.get(item_id))
+@app.route("/items/edit/<item_id>/")
+def items_edit_form(item_id):
+    return render_template("items/edit.html", item=Item.query.get(item_id))
 
 
-@app.route("/items/change_price/<item_id>/", methods=["POST"])
-def items_change_price(item_id):
+@app.route("/items/edit/<item_id>/", methods=["POST"])
+def items_edit(item_id):
     item = Item.query.get(item_id)
-    new_price = request.form.get("new_price")
-    if new_price:
-        item.price = new_price
+    name = request.form.get("name")
+    price = request.form.get("price")
+    if name:
+        item.name = name
+    if price and int(price) > 0:
+        item.price = price
     db.session().commit()
     return redirect(url_for("items_index"))
 

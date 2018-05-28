@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('items_form') }}">Lisää tuote</a>
+                <a class="nav-link" href="{{ url_for('items_new_form') }}">Lisää tuote</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('items_index') }}">Selaa tuotteita</a>
@@ -29,9 +29,11 @@
 
 <main role="main" class="container">
     {% block body %}
+
         <p>
             Sisältö.
         </p>
+
     {% endblock %}
 </main>
 
