@@ -19,10 +19,10 @@ Toimintoja:
 * asiakastietojen lisäys, muutos, poisto ja selaus
 
 ### Käyttötapauskaavio
-![Käyttötapauskaavio](documentation/käyttötapauskaavio.png)
+[Käyttötapauskaavio](documentation/käyttötapauskaavio.png)
 
 ### Tietokantakaavio
-![Tietokantakaavio](documentation/tietokantakaavio.png)
+[Tietokantakaavio](documentation/tietokantakaavio.png)
 
 ### Heroku
 https://tsoha-tukkuliike.herokuapp.com/
