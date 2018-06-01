@@ -1,4 +1,5 @@
 from flask import redirect, render_template, request, url_for
+from flask_login import login_required
 
 from application import app, db
 from application.items.models import Item
@@ -11,11 +12,13 @@ def items_index():
 
 
 @app.route("/items/new/")
+@login_required
 def items_new_form():
     return render_template("items/new.html", form=ItemForm())
 
 
 @app.route("/items/new/", methods=["POST"])
+@login_required
 def items_create():
     form = ItemForm(request.form)
     if not form.validate():
@@ -27,11 +30,13 @@ def items_create():
 
 
 @app.route("/items/edit/<item_id>/")
+@login_required
 def items_edit_form(item_id):
     return render_template("items/edit.html", form=ItemForm(), item=Item.query.get(item_id))
 
 
 @app.route("/items/edit/<item_id>/", methods=["POST"])
+@login_required
 def items_edit(item_id):
     form = ItemForm(request.form)
     if not form.validate():
@@ -44,6 +49,7 @@ def items_edit(item_id):
 
 
 @app.route("/items/delete/<item_id>/")
+@login_required
 def items_delete(item_id):
     item = Item.query.get(item_id)
     db.session.delete(item)
