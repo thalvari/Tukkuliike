@@ -1,19 +1,17 @@
 {% extends "layout.html" %}
 
-{% block body %}
-
-    <form class="form-inline mb-3" method="POST" action="{{ url_for('items_find') }}">
-        <input class="form-control mr-3" type="text" placeholder="Tuotteen nimi" name="query">
+{% block template %}
+    <form class="form-inline" method="POST" action="{{ url_for('items_find') }}">
+        {{ wtf.form_field(form.query, placeholder="Tuotteen nimi") }}
         <button type="submit" class="btn btn-primary">Etsi</button>
     </form>
-
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">Nimi</th>
-            <th scope="col">Hinta</th>
-            <th scope="col" style="width: 5%"></th>
-            <th scope="col" style="width: 5%"></th>
+            <th>Nimi</th>
+            <th>Hinta</th>
+            <th style="width: 5%"></th>
+            <th style="width: 5%"></th>
         </tr>
         </thead>
         <tbody>
@@ -22,12 +20,12 @@
                 <td>{{ item.name }}</td>
                 <td>{{ item.price }}</td>
                 <td>
-                    <form action="{{ url_for('items_edit_form', item_id=item.id) }}">
+                    <form action="{{ url_for('items_edit_form', item_id=item.item_id) }}">
                         <button type="submit" class="btn btn-primary btn-sm">Muokkaa</button>
                     </form>
                 </td>
                 <td>
-                    <form action="{{ url_for('items_delete', item_id=item.id) }}">
+                    <form action="{{ url_for('items_delete', item_id=item.item_id) }}">
                         <button type="submit" class="btn btn-primary btn-sm">Poista</button>
                     </form>
                 </td>
@@ -35,5 +33,4 @@
         {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}
