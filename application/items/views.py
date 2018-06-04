@@ -3,7 +3,7 @@ from flask_login import login_required
 
 from application import app, db
 from application.items.models import Item
-from application.items.forms import ItemEditForm, ItemFindForm, ItemNewForm
+from application.items.forms import ItemForm, ItemFindForm
 
 
 @app.route("/items/")
@@ -14,13 +14,13 @@ def items_index():
 @app.route("/items/new/")
 @login_required
 def items_new_form():
-    return render_template("items/new.html", form=ItemNewForm())
+    return render_template("items/new.html", form=ItemForm())
 
 
 @app.route("/items/new/", methods=["POST"])
 @login_required
 def items_create():
-    form = ItemNewForm(request.form)
+    form = ItemForm(request.form)
     if not form.validate():
         return render_template("items/new.html", form=form)
     item = Item(form.name.data, form.price.data)
@@ -32,13 +32,13 @@ def items_create():
 @app.route("/items/edit/<item_id>/")
 @login_required
 def items_edit_form(item_id):
-    return render_template("items/edit.html", form=ItemEditForm(), item=Item.query.get(item_id))
+    return render_template("items/edit.html", form=ItemForm(), item=Item.query.get(item_id))
 
 
 @app.route("/items/edit/<item_id>/", methods=["POST"])
 @login_required
 def items_edit(item_id):
-    form = ItemEditForm(request.form)
+    form = ItemForm(request.form)
     item = Item.query.get(item_id)
     if form.name.data != item.name and not form.validate():
         return render_template("items/edit.html", form=form, item=item)
