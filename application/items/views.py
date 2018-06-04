@@ -21,6 +21,7 @@ def items_new_form():
 @login_required
 def items_create():
     form = ItemForm(request.form)
+    form.item_id = 0
     if not form.validate():
         return render_template("items/new.html", form=form)
     item = Item(form.name.data, form.price.data)
@@ -40,7 +41,8 @@ def items_edit_form(item_id):
 def items_edit(item_id):
     form = ItemForm(request.form)
     item = Item.query.get(item_id)
-    if form.name.data != item.name and not form.validate():
+    form.item_id = int(item_id)
+    if not form.validate():
         return render_template("items/edit.html", form=form, item=item)
     item.name = form.name.data
     item.price = form.price.data
@@ -60,6 +62,7 @@ def items_delete(item_id):
 @app.route("/items/find/", methods=["POST"])
 def items_find():
     form = ItemFindForm(request.form)
+    form.item_id = 0
     if not form.validate():
         return render_template("items/index.html", form=form, items=Item.query.all())
     return render_template("items/index.html", form=ItemFindForm(),

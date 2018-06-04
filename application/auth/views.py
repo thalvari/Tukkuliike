@@ -61,7 +61,7 @@ def auth_edit_form():
 @login_required
 def auth_edit():
     form = UserForm(request.form)
-    if form.username.data != current_user.username and not form.validate():
+    if not form.validate():
         return render_template("auth/edit.html", form=form, user=current_user)
     current_user.username = form.username.data
     current_user.password = form.password.data

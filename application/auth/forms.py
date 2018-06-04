@@ -1,3 +1,4 @@
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, validators
 from wtforms.validators import InputRequired, Length
@@ -7,7 +8,7 @@ from application.auth.models import User
 
 def user_validate_username(form, field):
     user = User.query.filter_by(username=field.data).first()
-    if user:
+    if user and (not current_user.is_authenticated or user.user_id != current_user.user_id):
         raise validators.ValidationError("Käyttäjä on jo olemassa")
 
 
