@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block template %}
+    <form method="POST" action="{{ url_for('auth_edit') }}">
+        {{ wtf.form_field(form.username, placeholder=current_user.username) }}
+        {{ wtf.form_field(form.password) }}
+        <button type="submit" class="btn btn-primary">Muokkaa</button>
+    </form>
+{% endblock %}
+

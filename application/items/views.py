@@ -3,24 +3,24 @@ from flask_login import login_required
 
 from application import app, db
 from application.items.models import Item
-from application.items.forms import ItemForm, ItemFindForm
+from application.items.forms import ItemEditForm, ItemFindForm, ItemNewForm
 
 
 @app.route("/items/")
 def items_index():
-    return render_template("items/list.html", form=ItemFindForm(), items=Item.query.all())
+    return render_template("items/index.html", form=ItemFindForm(), items=Item.query.all())
 
 
 @app.route("/items/new/")
 @login_required
 def items_new_form():
-    return render_template("items/new.html", form=ItemForm())
+    return render_template("items/new.html", form=ItemNewForm())
 
 
 @app.route("/items/new/", methods=["POST"])
 @login_required
 def items_create():
-    form = ItemForm(request.form)
+    form = ItemNewForm(request.form)
     if not form.validate():
         return render_template("items/new.html", form=form)
     item = Item(form.name.data, form.price.data)
@@ -32,16 +32,16 @@ def items_create():
 @app.route("/items/edit/<item_id>/")
 @login_required
 def items_edit_form(item_id):
-    return render_template("items/edit.html", form=ItemForm(), item=Item.query.get(item_id))
+    return render_template("items/edit.html", form=ItemEditForm(), item=Item.query.get(item_id))
 
 
 @app.route("/items/edit/<item_id>/", methods=["POST"])
 @login_required
 def items_edit(item_id):
-    form = ItemForm(request.form)
-    if not form.validate():
-        return render_template("items/edit.html", form=form, item=Item.query.get(item_id))
+    form = ItemEditForm(request.form)
     item = Item.query.get(item_id)
+    if form.name.data != item.name and not form.validate():
+        return render_template("items/edit.html", form=form, item=item)
     item.name = form.name.data
     item.price = form.price.data
     db.session().commit()
@@ -60,5 +60,7 @@ def items_delete(item_id):
 @app.route("/items/find/", methods=["POST"])
 def items_find():
     form = ItemFindForm(request.form)
-    return render_template("items/list.html", form=ItemFindForm(),
+    if not form.validate():
+        return render_template("items/index.html", form=form, items=Item.query.all())
+    return render_template("items/index.html", form=ItemFindForm(),
                            items=Item.query.filter_by(name=form.query.data).all())
