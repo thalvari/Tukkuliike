@@ -12,7 +12,7 @@ def item_validate_name(form, field):
 
 
 class ItemForm(FlaskForm):
-    name = StringField("Nimi", [InputRequired(), Length(min=1, max=144, message="Tuotteen nimen pituus 1-144 merkkiä"),
+    name = StringField("Nimi", [InputRequired(), Length(min=1, max=144, message="Nimen pituus 1-144 merkkiä"),
                                 item_validate_name])
     price = IntegerField("Hinta (sentteinä)",
                          [InputRequired(), NumberRange(min=1, max=999999, message="Syötä luku väliltä 1-999999")])
@@ -22,7 +22,7 @@ class ItemForm(FlaskForm):
 
 
 class ItemFindForm(FlaskForm):
-    query = StringField("", [InputRequired(), Length(min=1, max=144, message="Tuotteen nimen pituus 1-144 merkkiä")])
+    name = StringField("", [InputRequired(), Length(min=1, max=144, message="Nimen pituus 1-144 merkkiä")])
 
     class Meta:
         csrf = False

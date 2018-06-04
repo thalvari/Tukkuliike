@@ -2,8 +2,8 @@
 
 {% block template %}
     <form class="form-inline pull-right" method="POST" action="{{ url_for('items_find') }}">
-        {{ wtf.form_field(form.query, placeholder="Tuotteen nimi") }}
-        <button type="submit" class="btn btn-primary btn-sm">Etsi</button>
+        {{ wtf.form_field(form.name, placeholder="Tuotteen nimi") }}
+        <button type="submit" class="btn btn-primary btn-sm">Hae</button>
     </form>
     <table class="table">
         <thead>

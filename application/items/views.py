@@ -63,4 +63,4 @@ def items_find():
     if not form.validate():
         return render_template("items/index.html", form=form, items=Item.query.all())
     return render_template("items/index.html", form=ItemFindForm(),
-                           items=Item.query.filter_by(name=form.query.data).all())
+                           items=Item.query.filter_by(name=form.name.data).all())
