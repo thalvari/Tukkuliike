@@ -17,7 +17,7 @@ def user_items_cart_index():
 @login_required
 def user_items_ordered_index():
     return render_template("user_items/ordered.html",
-                           user_items=UserItem.query.filter_by(user_id=current_user.user_id, ordered=1).all())
+                           user_items=UserItem.query.filter_by(user_id=current_user.user_id, ordered=True).all())
 
 
 @app.route("/user_items/new/<item_id>/", methods=["POST"])

@@ -20,7 +20,7 @@ class UserItem(db.Model):
     def find_cart_items(user_id):
         stmt = text("SELECT item.name, item.price, user_item.quantity, user_item.user_item_id "
                     "FROM user_item LEFT JOIN item ON user_item.item_id = item.item_id "
-                    "WHERE user_item.user_id = :user_id AND user_item.ordered = 0").params(user_id=user_id)
+                    "WHERE user_item.user_id = :user_id AND user_item.ordered = '0'").params(user_id=user_id)
         res = db.engine.execute(stmt)
         cart_dict = []
         for row in res:
