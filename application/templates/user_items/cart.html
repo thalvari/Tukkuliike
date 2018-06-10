@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block template %}
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Tuotteen nimi</th>
@@ -31,7 +31,7 @@
         {% endfor %}
         </tbody>
     </table>
-    <label>Yhteensä (sentteinä): {{ cart_total }}</label>
+    <label class="pull-right">Yhteensä (sentteinä): {{ cart_total }}</label>
     <form method="POST" action="{{ url_for('user_items_order') }}">
         <button type="submit" class="btn btn-primary">Tilaa</button>
     </form>

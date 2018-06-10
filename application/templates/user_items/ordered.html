@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
 
 {% block template %}
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Tuotteen nimi</th>
             <th>Hinta (sentteinä)</th>
             <th>Määrä</th>
+            <th>Tilattu</th>
         </tr>
         </thead>
         <tbody>
@@ -15,6 +16,7 @@
                 <td>{{ user_item.item.name }}</td>
                 <td>{{ user_item.item.price }}</td>
                 <td>{{ user_item.quantity }}</td>
+                <td>{{ user_item.date_ordered }}</td>
         {% endfor %}
         </tbody>
     </table>

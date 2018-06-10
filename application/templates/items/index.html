@@ -5,11 +5,12 @@
         {{ wtf.form_field(form.name, placeholder="Tuotteen nimi") }}
         <button type="submit" class="btn btn-primary btn-sm">Hae</button>
     </form>
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Nimi</th>
             <th>Hinta (sentteinä)</th>
+            <th>Lisätty</th>
             <th style="width: 1%"></th>
             {% if current_user.is_authenticated %}
                 <th style="width: 1%"></th>
@@ -22,6 +23,7 @@
             <tr>
                 <td>{{ item.name }}</td>
                 <td>{{ item.price }}</td>
+                <td>{{ item.date_added }}</td>
                 <td>
                     <form action="{{ url_for('items_view', item_id=item.item_id) }}">
                         <button type="submit" class="btn btn-primary btn-sm">Näytä</button>
