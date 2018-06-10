@@ -14,7 +14,7 @@ class UserItemForm(FlaskForm):
 
 
 def validate_item_id(form, field):
-    if UserItem.query.filter_by(item_id=form.item_id, user_id=current_user.user_id, ordered=0).first():
+    if UserItem.query.filter_by(item_id=form.item_id, user_id=current_user.user_id, ordered=False).first():
         raise ValidationError("Tuote on jo ostoskorissa")
 
 
