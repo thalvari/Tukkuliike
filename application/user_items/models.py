@@ -17,6 +17,9 @@ class UserItem(db.Model):
         self.quantity = quantity
         self.ordered = False
 
+    def get_date_ordered_no_millis(self):
+        return self.date_ordered.strftime('%Y-%m-%d %H:%M:%S')
+
     @staticmethod
     def calc_cart_total(user_id):
         stmt = text("SELECT SUM(item.price * user_item.quantity) FROM user_item LEFT JOIN item "
@@ -24,6 +27,6 @@ class UserItem(db.Model):
                     "AND user_item.ordered = :ordered").params(user_id=user_id, ordered=False)
         result = db.engine.execute(stmt).first()[0]
         if result:
-            return result
+            return "{:.2f}".format(float(result) / 100)
         else:
             return 0

@@ -11,3 +11,9 @@ class Item(db.Model):
     def __init__(self, name, price):
         self.name = name
         self.price = price
+
+    def get_price_in_euros(self):
+        return "{:.2f}".format(float(self.price) / 100)
+
+    def get_date_added_no_millis(self):
+        return self.date_added.strftime('%Y-%m-%d %H:%M:%S')

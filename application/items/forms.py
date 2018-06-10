@@ -15,7 +15,7 @@ class ItemForm(FlaskForm):
     item_id = 0
     name = StringField("Nimi", [InputRequired(), Length(min=1, max=144, message="Nimen pituus 1-144 merkkiä"),
                                 item_validate_name])
-    price = IntegerField("Hinta (sentteinä)",
+    price = IntegerField("Hinta (senttiä)",
                          [InputRequired(), NumberRange(min=1, max=999999, message="Syötä luku väliltä 1-999999")])
 
     class Meta:

@@ -5,7 +5,7 @@
         <thead>
         <tr>
             <th>Tuotteen nimi</th>
-            <th>Hinta (sentteinä)</th>
+            <th>Hinta (€)</th>
             <th>Määrä</th>
             <th style="width: 1%"></th>
             <th style="width: 1%"></th>
@@ -15,7 +15,7 @@
         {% for user_item in user_items %}
             <tr>
                 <td>{{ user_item.item.name }}</td>
-                <td>{{ user_item.item.price }}</td>
+                <td>{{ user_item.item.get_price_in_euros() }}</td>
                 <td>{{ user_item.quantity }}</td>
                 <td>
                     <form action="{{ url_for('user_items_edit_form', user_item_id=user_item.user_item_id) }}">
@@ -31,7 +31,7 @@
         {% endfor %}
         </tbody>
     </table>
-    <label class="pull-right">Yhteensä (sentteinä): {{ cart_total }}</label>
+    <label class="pull-right">Yhteensä: {{ cart_total }} €</label>
     <form method="POST" action="{{ url_for('user_items_order') }}">
         <button type="submit" class="btn btn-primary">Tilaa</button>
     </form>

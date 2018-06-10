@@ -9,7 +9,7 @@
         <thead>
         <tr>
             <th>Nimi</th>
-            <th>Hinta (sentteinä)</th>
+            <th>Hinta (€)</th>
             <th>Lisätty</th>
             <th style="width: 1%"></th>
             {% if current_user.is_authenticated %}
@@ -22,8 +22,8 @@
         {% for item in items %}
             <tr>
                 <td>{{ item.name }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.date_added }}</td>
+                <td>{{ item.get_price_in_euros() }}</td>
+                <td>{{ item.get_date_added_no_millis() }}</td>
                 <td>
                     <form action="{{ url_for('items_view', item_id=item.item_id) }}">
                         <button type="submit" class="btn btn-primary btn-sm">Näytä</button>
