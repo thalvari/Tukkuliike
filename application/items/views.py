@@ -4,6 +4,7 @@ from flask_login import login_required
 from application import app, db
 from application.items.models import Item
 from application.items.forms import ItemForm, ItemFindForm
+from application.user_items.forms import UserItemCheckForm
 
 
 @app.route("/items/")
@@ -28,6 +29,11 @@ def items_create():
     db.session.add(item)
     db.session.commit()
     return redirect(url_for("items_index"))
+
+
+@app.route("/items/view/<item_id>/")
+def items_view(item_id):
+    return render_template("items/view.html", form=UserItemCheckForm(), item=Item.query.get(item_id))
 
 
 @app.route("/items/edit/<item_id>/")

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block template %}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Hinta (sentteinä)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }}</td>
+        </tr>
+        </tbody>
+    </table>
+    {% if current_user.is_authenticated %}
+        <form method="POST" action="{{ url_for('user_items_create', item_id=item.item_id) }}">
+            {{ wtf.form_field(form.quantity, placeholder="Määrä", type="number") }}
+            <button type="submit" class="btn btn-primary">Lisää koriin</button>
+        </form>
+    {% endif %}
+{% endblock %}
+

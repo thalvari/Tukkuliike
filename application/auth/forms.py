@@ -1,7 +1,7 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, validators
-from wtforms.validators import InputRequired, Length
+from wtforms import PasswordField, StringField
+from wtforms.validators import InputRequired, Length, ValidationError
 
 from application.auth.models import User
 
@@ -9,17 +9,15 @@ from application.auth.models import User
 def user_validate_username(form, field):
     user = User.query.filter_by(username=field.data).first()
     if user and (not current_user.is_authenticated or user.user_id != current_user.user_id):
-        raise validators.ValidationError("Käyttäjä on jo olemassa")
+        raise ValidationError("Käyttäjä on jo olemassa")
 
 
 class UserForm(FlaskForm):
     username = StringField("Käyttäjänimi",
-                           [InputRequired(),
-                            Length(min=4, max=144, message="Käyttäjänimen pituus 4-144 merkkiä"),
+                           [InputRequired(), Length(min=4, max=144, message="Käyttäjänimen pituus 4-144 merkkiä"),
                             user_validate_username])
     password = PasswordField("Salasana",
-                             [InputRequired(),
-                              Length(min=8, max=144, message="Salasanan pituus 8-144 merkkiä")])
+                             [InputRequired(), Length(min=8, max=144, message="Salasanan pituus 8-144 merkkiä")])
 
     class Meta:
         csrf = False
@@ -28,21 +26,19 @@ class UserForm(FlaskForm):
 def user_login_validate_username(form, field):
     user = User.query.filter_by(username=field.data).first()
     if not user:
-        raise validators.ValidationError("Käyttäjää ei löydy")
+        raise ValidationError("Käyttäjää ei löydy")
 
 
 def user_login_validate_password(form, field):
     user = User.query.filter_by(username=form.username.data).first()
     if user and field.data != user.password:
-        raise validators.ValidationError("Salasana väärin")
+        raise ValidationError("Salasana väärin")
 
 
 class UserLoginForm(UserForm):
     username = StringField("Käyttäjänimi",
-                           [InputRequired(),
-                            Length(min=4, max=144, message="Käyttäjänimen pituus 4-144 merkkiä"),
+                           [InputRequired(), Length(min=4, max=144, message="Käyttäjänimen pituus 4-144 merkkiä"),
                             user_login_validate_username])
     password = PasswordField("Salasana",
-                             [InputRequired(),
-                              Length(min=8, max=144, message="Salasanan pituus 8-144 merkkiä"),
+                             [InputRequired(), Length(min=8, max=144, message="Salasanan pituus 8-144 merkkiä"),
                               user_login_validate_password])

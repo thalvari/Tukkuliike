@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block template %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Tuotteen nimi</th>
+            <th>Hinta (sentteinä)</th>
+            <th>Määrä</th>
+            <th style="width: 1%"></th>
+            <th style="width: 1%"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in cart_dict %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.price }}</td>
+                <td>{{ row.quantity }}</td>
+                <td>
+                    <form action="{{ url_for('user_items_edit_form', user_item_id=row.user_item_id) }}">
+                        <button type="submit" class="btn btn-primary btn-sm">Muuta</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('user_items_delete', user_item_id=row.user_item_id) }}">
+                        <button type="submit" class="btn btn-primary btn-sm">Poista</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form method="POST" action="{{ url_for('user_items_order') }}">
+        <button type="submit" class="btn btn-primary">Tilaa</button>
+    </form>
+{% endblock %}

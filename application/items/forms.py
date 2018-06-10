@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, validators
-from wtforms.validators import InputRequired, Length, NumberRange
+from wtforms import StringField, IntegerField
+from wtforms.validators import InputRequired, Length, NumberRange, ValidationError
 
 from application.items.models import Item
 
@@ -8,7 +8,7 @@ from application.items.models import Item
 def item_validate_name(form, field):
     item = Item.query.filter_by(name=field.data).first()
     if item and item.item_id != form.item_id:
-        raise validators.ValidationError("Samanniminen tuote on jo olemassa")
+        raise ValidationError("Samanniminen tuote on jo olemassa")
 
 
 class ItemForm(FlaskForm):

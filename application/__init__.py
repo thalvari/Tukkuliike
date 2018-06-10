@@ -18,6 +18,7 @@ db = SQLAlchemy(app)
 from application import views
 from application.auth import models, views
 from application.items import models, views
+from application.user_items import models, views
 
 from application.auth.models import User
 from os import urandom

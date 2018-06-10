@@ -10,9 +10,10 @@
         <tr>
             <th>Nimi</th>
             <th>Hinta (sentteinä)</th>
+            <th style="width: 1%"></th>
             {% if current_user.is_authenticated %}
-                <th style="width: 5%"></th>
-                <th style="width: 5%"></th>
+                <th style="width: 1%"></th>
+                <th style="width: 1%"></th>
             {% endif %}
         </tr>
         </thead>
@@ -21,6 +22,11 @@
             <tr>
                 <td>{{ item.name }}</td>
                 <td>{{ item.price }}</td>
+                <td>
+                    <form action="{{ url_for('items_view', item_id=item.item_id) }}">
+                        <button type="submit" class="btn btn-primary btn-sm">Näytä</button>
+                    </form>
+                </td>
                 {% if current_user.is_authenticated %}
                     <td>
                         <form action="{{ url_for('items_edit_form', item_id=item.item_id) }}">
