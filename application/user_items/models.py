@@ -20,6 +20,10 @@ class UserItem(db.Model):
     def calc_cart_total(user_id):
         stmt = text("SELECT SUM(item.price * user_item.quantity) "
                     "FROM user_item LEFT JOIN item ON user_item.item_id = item.item_id "
-                    "WHERE user_item.user_id = :user_id AND user_item.ordered = FALSE").params(user_id=user_id)
-        result = db.engine.execute(stmt)
-        return result.first()[0]
+                    "WHERE user_item.user_id = :user_id AND user_item.ordered = :ordered").params(user_id=user_id,
+                                                                                                  ordered=False)
+        result = db.engine.execute(stmt).first()[0]
+        if result:
+            return result
+        else:
+            return 0

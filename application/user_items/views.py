@@ -65,7 +65,7 @@ def user_items_delete(user_item_id):
 @app.route("/user_items/order/", methods=["POST"])
 @login_required
 def user_items_order():
-    user_items = UserItem.query.filter_by(user_id=current_user.user_id, ordered=0).all()
+    user_items = UserItem.query.filter_by(user_id=current_user.user_id, ordered=False).all()
     for user_item in user_items:
         user_item.ordered = True
     db.session().commit()
