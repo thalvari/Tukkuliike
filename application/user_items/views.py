@@ -10,7 +10,8 @@ from application.user_items.models import UserItem
 @app.route("/user_items/cart/")
 @login_required
 def user_items_cart_index():
-    return render_template("user_items/cart.html", cart_dict=UserItem.find_cart_items(current_user.user_id))
+    return render_template("user_items/cart.html", cart_total=UserItem.calc_cart_total(current_user.user_id),
+                           user_items=UserItem.query.filter_by(user_id=current_user.user_id, ordered=False).all())
 
 
 @app.route("/user_items/ordered/")

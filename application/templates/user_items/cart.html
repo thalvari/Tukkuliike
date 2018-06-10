@@ -12,18 +12,18 @@
         </tr>
         </thead>
         <tbody>
-        {% for row in cart_dict %}
+        {% for user_item in user_items %}
             <tr>
-                <td>{{ row.name }}</td>
-                <td>{{ row.price }}</td>
-                <td>{{ row.quantity }}</td>
+                <td>{{ user_item.item.name }}</td>
+                <td>{{ user_item.item.price }}</td>
+                <td>{{ user_item.quantity }}</td>
                 <td>
-                    <form action="{{ url_for('user_items_edit_form', user_item_id=row.user_item_id) }}">
+                    <form action="{{ url_for('user_items_edit_form', user_item_id=user_item.user_item_id) }}">
                         <button type="submit" class="btn btn-primary btn-sm">Muuta</button>
                     </form>
                 </td>
                 <td>
-                    <form action="{{ url_for('user_items_delete', user_item_id=row.user_item_id) }}">
+                    <form action="{{ url_for('user_items_delete', user_item_id=user_item.user_item_id) }}">
                         <button type="submit" class="btn btn-primary btn-sm">Poista</button>
                     </form>
                 </td>
@@ -31,6 +31,7 @@
         {% endfor %}
         </tbody>
     </table>
+    <label>Yhteensä (sentteinä): {{ cart_total }}</label>
     <form method="POST" action="{{ url_for('user_items_order') }}">
         <button type="submit" class="btn btn-primary">Tilaa</button>
     </form>
