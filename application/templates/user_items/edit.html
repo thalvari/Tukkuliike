@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block template %}
-    <form method="POST" action="{{ url_for('user_items_edit', user_item_id=user_item.user_item_id) }}">
+    <form method="POST" action="{{ url_for('user_items_edit', user_item_id=user_item.id) }}">
         {{ wtf.form_field(form.quantity, placeholder=user_item.quantity, type="number") }}
         <button type="submit" class="btn btn-primary">Muuta</button>
     </form>

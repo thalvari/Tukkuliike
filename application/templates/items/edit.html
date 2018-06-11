@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block template %}
-    <form method="POST" action="{{ url_for('items_edit', item_id=item.item_id) }}">
+    <form method="POST" action="{{ url_for('items_edit', item_id=item.id) }}">
         {{ wtf.form_field(form.name, placeholder=item.name) }}
         {{ wtf.form_field(form.price, type="number", placeholder=item.price) }}
         <button type="submit" class="btn btn-primary">Muokkaa</button>

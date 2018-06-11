@@ -1,9 +1,9 @@
 from application import db
+from application.models import Base
 
 
-class User(db.Model):
+class User(Base):
     __tablename__ = "account"
-    user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(144), nullable=False, unique=True)
     password = db.Column(db.String(144), nullable=False)
     user_items = db.relationship("UserItem", backref='user', lazy=True)
@@ -13,7 +13,7 @@ class User(db.Model):
         self.password = password
 
     def get_id(self):
-        return self.user_id
+        return self.id
 
     def is_active(self):
         return True

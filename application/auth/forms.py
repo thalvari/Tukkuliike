@@ -8,7 +8,7 @@ from application.auth.models import User
 
 def user_validate_username(form, field):
     user = User.query.filter_by(username=field.data).first()
-    if user and (not current_user.is_authenticated or user.user_id != current_user.user_id):
+    if user and (not current_user.is_authenticated or user.id != current_user.id):
         raise ValidationError("Käyttäjä on jo olemassa")
 
 

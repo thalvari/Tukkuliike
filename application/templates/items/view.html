@@ -13,12 +13,12 @@
         <tr>
             <td>{{ item.name }}</td>
             <td>{{ item.get_price_in_euros() }}</td>
-            <td>{{ item.get_date_added_no_millis() }}</td>
+            <td>{{ item.get_date_created_no_millis() }}</td>
         </tr>
         </tbody>
     </table>
     {% if current_user.is_authenticated %}
-        <form method="POST" action="{{ url_for('user_items_create', item_id=item.item_id) }}">
+        <form method="POST" action="{{ url_for('user_items_create', item_id=item.id) }}">
             {{ wtf.form_field(form.quantity, type="number") }}
             <button type="submit" class="btn btn-primary">Lisää koriin</button>
         </form>

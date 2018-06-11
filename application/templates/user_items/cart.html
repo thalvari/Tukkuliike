@@ -18,12 +18,12 @@
                 <td>{{ user_item.item.get_price_in_euros() }}</td>
                 <td>{{ user_item.quantity }}</td>
                 <td>
-                    <form action="{{ url_for('user_items_edit_form', user_item_id=user_item.user_item_id) }}">
+                    <form action="{{ url_for('user_items_edit_form', user_item_id=user_item.id) }}">
                         <button type="submit" class="btn btn-primary btn-sm">Muuta</button>
                     </form>
                 </td>
                 <td>
-                    <form action="{{ url_for('user_items_delete', user_item_id=user_item.user_item_id) }}">
+                    <form action="{{ url_for('user_items_delete', user_item_id=user_item.id) }}">
                         <button type="submit" class="btn btn-primary btn-sm">Poista</button>
                     </form>
                 </td>

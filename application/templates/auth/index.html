@@ -5,12 +5,14 @@
         <thead>
         <tr>
             <th>Käyttäjänimi</th>
+            <th>Rekisteröitynyt</th>
         </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
                 <td>{{ user.username }}</td>
+                <td>{{ user.get_date_created_no_millis() }}</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -5,7 +5,6 @@
         <thead>
         <tr>
             <th>Tuotteen nimi</th>
-            <th>Hinta (€)</th>
             <th>Määrä</th>
             <th>Tilattu</th>
         </tr>
@@ -14,9 +13,9 @@
         {% for user_item in user_items %}
             <tr>
                 <td>{{ user_item.item.name }}</td>
-            <td>{{ user_item.item.get_price_in_euros() }}</td>
                 <td>{{ user_item.quantity }}</td>
-            <td>{{ user_item.get_date_ordered_no_millis() }}</td>
+                <td>{{ user_item.get_date_modified_no_millis() }}</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>

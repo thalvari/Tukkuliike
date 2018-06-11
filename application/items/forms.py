@@ -7,7 +7,7 @@ from application.items.models import Item
 
 def item_validate_name(form, field):
     item = Item.query.filter_by(name=field.data).first()
-    if item and item.item_id != form.item_id:
+    if item and item.id != form.item_id:
         raise ValidationError("Samanniminen tuote on jo olemassa")
 
 
