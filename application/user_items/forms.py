@@ -20,5 +20,5 @@ def validate_item_id(form, field):
 
 class UserItemCheckForm(UserItemForm):
     item_id = 0
-    quantity = IntegerField("", [InputRequired(), NumberRange(min=1, max=99, message="Syötä luku väliltä 1-99"),
-                                 validate_item_id])
+    quantity = IntegerField("Määrä", [InputRequired(), NumberRange(min=1, max=99, message="Syötä luku väliltä 1-99"),
+                                      validate_item_id])
