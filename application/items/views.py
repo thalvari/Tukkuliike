@@ -2,8 +2,8 @@ from flask import redirect, render_template, request, url_for
 from flask_login import login_required
 
 from application import app, db
-from application.items.models import Item
 from application.items.forms import ItemForm, ItemFindForm
+from application.items.models import Item
 from application.user_items.forms import UserItemCheckForm
 from application.user_items.models import UserItem
 
@@ -23,7 +23,6 @@ def items_new_form():
 @login_required
 def items_create():
     form = ItemForm(request.form)
-    form.item_id = 0
     if not form.validate():
         return render_template("items/new.html", form=form)
     item = Item(form.name.data, form.price.data)
@@ -48,7 +47,7 @@ def items_edit_form(item_id):
 def items_edit(item_id):
     form = ItemForm(request.form)
     item = Item.query.get(item_id)
-    form.item_id = int(item_id)
+    form.item_id = item.id
     if not form.validate():
         return render_template("items/edit.html", form=form, item=item)
     item.name = form.name.data
@@ -72,7 +71,6 @@ def items_delete(item_id):
 @app.route("/items/find", methods=["POST"])
 def items_find():
     form = ItemFindForm(request.form)
-    form.item_id = 0
     if not form.validate():
         return render_template("items/index.html", form=form, items=Item.query.all())
     return render_template("items/index.html", form=ItemFindForm(),
