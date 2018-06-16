@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import current_user, login_required, login_user, logout_user
+from flask_login import current_user, login_user, logout_user
 
-from application import app, db
-from application.auth.models import User
+from application import app, db, login_required
 from application.auth.forms import UserForm, UserLoginForm
+from application.auth.models import User
 
 
 @app.route("/auth/login")
@@ -22,7 +22,7 @@ def auth_login():
 
 
 @app.route("/auth/logout")
-@login_required
+@login_required(role="ANY")
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))
@@ -38,7 +38,7 @@ def auth_register():
     form = UserForm(request.form)
     if not form.validate():
         return render_template("auth/register.html", form=form)
-    user = User(form.username.data, form.password.data)
+    user = User(form.username.data, form.password.data, "CUSTOMER")
     db.session.add(user)
     db.session.commit()
     login_user(user)
@@ -46,19 +46,19 @@ def auth_register():
 
 
 @app.route("/auth")
-@login_required
+@login_required(role="ANY")
 def auth_index():
     return render_template("auth/index.html", users=User.query.all())
 
 
 @app.route("/auth/edit")
-@login_required
+@login_required(role="ANY")
 def auth_edit_form():
     return render_template("auth/edit.html", form=UserForm(), user=current_user)
 
 
-@app.route("/users/edit", methods=["POST"])
-@login_required
+@app.route("/auth/edit", methods=["POST"])
+@login_required(role="ANY")
 def auth_edit():
     form = UserForm(request.form)
     if not form.validate():

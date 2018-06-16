@@ -1,7 +1,6 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required
 
-from application import app, db
+from application import app, db, login_required
 from application.items.forms import ItemForm, ItemFindForm
 from application.items.models import Item
 from application.user_items.forms import UserItemCheckForm
@@ -14,13 +13,13 @@ def items_index():
 
 
 @app.route("/items/new")
-@login_required
+@login_required(role="ADMIN")
 def items_new_form():
     return render_template("items/new.html", form=ItemForm())
 
 
 @app.route("/items/new", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def items_create():
     form = ItemForm(request.form)
     if not form.validate():
@@ -37,13 +36,13 @@ def items_view(item_id):
 
 
 @app.route("/items/edit/<item_id>")
-@login_required
+@login_required(role="ADMIN")
 def items_edit_form(item_id):
     return render_template("items/edit.html", form=ItemForm(), item=Item.query.get(item_id))
 
 
 @app.route("/items/edit/<item_id>", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def items_edit(item_id):
     form = ItemForm(request.form)
     item = Item.query.get(item_id)
@@ -57,7 +56,7 @@ def items_edit(item_id):
 
 
 @app.route("/items/delete/<item_id>")
-@login_required
+@login_required(role="ADMIN")
 def items_delete(item_id):
     user_items = UserItem.query.filter_by(item_id=item_id).all()
     for user_item in user_items:

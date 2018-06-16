@@ -1,28 +1,28 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 
-from application import app, db
+from application import app, db, login_manager, login_required
 from application.items.models import Item
 from application.user_items.forms import UserItemForm, UserItemCheckForm
 from application.user_items.models import UserItem
 
 
 @app.route("/user_items/cart")
-@login_required
+@login_required(role="CUSTOMER")
 def user_items_cart_index():
     return render_template("user_items/cart.html", cart_total=UserItem.calc_cart_total(current_user.id),
                            user_items=UserItem.query.filter_by(user_id=current_user.id, ordered=False).all())
 
 
 @app.route("/user_items/ordered")
-@login_required
+@login_required(role="CUSTOMER")
 def user_items_ordered_index():
     return render_template("user_items/ordered.html",
                            user_items=UserItem.query.filter_by(user_id=current_user.id, ordered=True).all())
 
 
 @app.route("/user_items/new/<item_id>", methods=["POST"])
-@login_required
+@login_required(role="CUSTOMER")
 def user_items_create(item_id):
     form = UserItemCheckForm(request.form)
     form.item_id = int(item_id)
@@ -35,13 +35,16 @@ def user_items_create(item_id):
 
 
 @app.route("/user_items/edit/<user_item_id>")
-@login_required
+@login_required(role="CUSTOMER")
 def user_items_edit_form(user_item_id):
-    return render_template("user_items/edit.html", form=UserItemForm(), user_item=UserItem.query.get(user_item_id))
+    user_item = UserItem.query.get(user_item_id)
+    if user_item.user_id != current_user.id:
+        return login_manager.unauthorized()
+    return render_template("user_items/edit.html", form=UserItemForm(), user_item=user_item)
 
 
 @app.route("/user_items/edit/<user_item_id>", methods=["POST"])
-@login_required
+@login_required(role="CUSTOMER")
 def user_items_edit(user_item_id):
     form = UserItemForm(request.form)
     user_item = UserItem.query.get(user_item_id)
@@ -53,7 +56,7 @@ def user_items_edit(user_item_id):
 
 
 @app.route("/user_items/delete/<user_item_id>")
-@login_required
+@login_required(role="CUSTOMER")
 def user_items_delete(user_item_id):
     user_item = UserItem.query.get(user_item_id)
     db.session.delete(user_item)
@@ -62,7 +65,7 @@ def user_items_delete(user_item_id):
 
 
 @app.route("/user_items/order", methods=["POST"])
-@login_required
+@login_required(role="CUSTOMER")
 def user_items_order():
     user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).all()
     for user_item in user_items:

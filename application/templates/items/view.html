@@ -17,7 +17,7 @@
         </tr>
         </tbody>
     </table>
-    {% if current_user.is_authenticated %}
+    {% if current_user.is_authenticated and current_user.role == "CUSTOMER" %}
         <form method="POST" action="{{ url_for('user_items_create', item_id=item.id) }}">
             {{ wtf.form_field(form.quantity, type="number") }}
             <button type="submit" class="btn btn-primary">Lisää koriin</button>
