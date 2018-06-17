@@ -19,9 +19,9 @@ Toimintoja:
 * asiakastietojen lisäys, muutos, poisto ja selaus
 
 ### Muu dokumentaatio
-* [asiakkaan käyttötapauskaavio](documentation/asiakas_käyttötapauskaavio.jpg)
-* [vierailijan käyttötapauskaavio](documentation/vierailija_käyttötapauskaavio.jpg)
-* [ylläpitäjän käyttötapauskaavio](documentation/ylläpitäjä_käyttötapauskaavio.jpg)
+* [asiakkaan käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/asiakas_käyttötapauskaavio.jpg)
+* [vierailijan käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/vierailija_käyttötapauskaavio.jpg)
+* [ylläpitäjän käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/ylläpitäjä_käyttötapauskaavio.jpg)
 * [tietokantakaavio](documentation/tietokantakaavio.jpg)
 
 ### Heroku
