@@ -22,7 +22,7 @@ Toimintoja:
 * [asiakkaan käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/asiakas_käyttötapauskaavio.jpg)
 * [vierailijan käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/vierailija_käyttötapauskaavio.jpg)
 * [ylläpitäjän käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/ylläpitäjä_käyttötapauskaavio.jpg)
-* [tietokantakaavio](documentation/tietokantakaavio.jpg)
+* [tietokantakaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/tietokantakaavio.jpg)
 
 ### Heroku
 * https://tsoha-tukkuliike.herokuapp.com/
