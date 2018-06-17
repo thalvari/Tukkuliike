@@ -34,7 +34,7 @@ Toimintoja:
 * tuotteiden selaussivulla voidaan tuotetta hakea sen nimen perusteella sekä tarkastella tiettyä tuotetta
 
 ##### Asiakas
-* yläpalkista löytyy linkki tuotteideen selaamiseen
+* yläpalkista löytyy linkki tuotteiden selaamiseen
 * tuotteiden selaussivulla voidaan tuotetta hakea sen nimen perusteella sekä tarkastella tiettyä tuotetta
 * tuotteen tarkastelusivulla se voidaan lisätä ostoskoriin
 * klikkaamalla yläpalkin oikeasta laidasta löytyvää käyttäjänimeä, aukeaa valikko, josta löytyy linkit omien käyttäjätietojen muokkaamiseen, omien laskujen/omien tilausten/ostoskorin selaamiseen ja uloskirjautumiseen
@@ -44,7 +44,7 @@ Toimintoja:
 ##### Ylläpitäjä
 * yläpalkista löytyy linkit uuden tuotteen lisäämiseen sekä käyttäjien/laskujen/tuotteiden selaamiseen
 * klikkaamalla yläpalkin oikeasta laidasta löytyvää käyttäjänimeä, aukeaa valikko, josta löytyy linkit omien käyttäjätietojen muokkaamiseen ja uloskirjautumiseen
-* asiakkaiden selaussivulla voidaan asiakasta hakea käyttäjänimen perusteella sekä poistaa tietty asiakas
+* käyttäjienen selaussivulla voidaan käyttäjää hakea käyttäjänimen perusteella sekä poistaa tietty asiakas
 * tuotteiden selaussivulla voidaan lisäksi muokata tiettyä tuotetta tai se voidaan poistaa järjestelmästä
 
 ### Muu dokumentaatio
