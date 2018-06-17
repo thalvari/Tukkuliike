@@ -18,12 +18,13 @@ Toimintoja:
 * varaston selaus
 * asiakastietojen lisäys, muutos, poisto ja selaus
 
-### Käyttötapauskaavio
-* [linkki](documentation/käyttötapauskaavio.jpg)
-
-### Tietokantakaavio
-* [linkki](documentation/tietokantakaavio.jpg)
+### Muu dokumentaatio
+* [asiakkaan käyttötapauskaavio](documentation/asiakas_käyttötapauskaavio.jpg)
+* [vierailijan käyttötapauskaavio](documentation/vierailija_käyttötapauskaavio.jpg)
+* [ylläpitäjän käyttötapauskaavio](documentation/ylläpitäjä_käyttötapauskaavio.jpg)
+* [tietokantakaavio](documentation/tietokantakaavio.jpg)
 
 ### Heroku
 * https://tsoha-tukkuliike.herokuapp.com/
-* user:password
+* testiasiakas: ```user:12345678```
+* testiylläpitäjä: ```admin:password```

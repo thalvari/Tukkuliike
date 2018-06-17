@@ -1,9 +1,9 @@
 from flask_login import current_user
-from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField
 from wtforms.validators import InputRequired, Length, ValidationError
 
 from application.auth.models import User
+from application.models import BaseForm
 
 
 def user_validate_username(form, field):
@@ -12,15 +12,12 @@ def user_validate_username(form, field):
         raise ValidationError("Käyttäjä on jo olemassa")
 
 
-class UserForm(FlaskForm):
+class UserForm(BaseForm):
     username = StringField("Käyttäjänimi",
                            [InputRequired(), Length(min=4, max=144, message="Käyttäjänimen pituus 4-144 merkkiä"),
                             user_validate_username])
     password = PasswordField("Salasana",
                              [InputRequired(), Length(min=8, max=144, message="Salasanan pituus 8-144 merkkiä")])
-
-    class Meta:
-        csrf = False
 
 
 def user_login_validate_username(form, field):
@@ -35,10 +32,14 @@ def user_login_validate_password(form, field):
         raise ValidationError("Salasana väärin")
 
 
-class UserLoginForm(UserForm):
+class UserLoginForm(BaseForm):
     username = StringField("Käyttäjänimi",
                            [InputRequired(), Length(min=4, max=144, message="Käyttäjänimen pituus 4-144 merkkiä"),
                             user_login_validate_username])
     password = PasswordField("Salasana",
                              [InputRequired(), Length(min=8, max=144, message="Salasanan pituus 8-144 merkkiä"),
                               user_login_validate_password])
+
+
+class UserFindForm(BaseForm):
+    username = StringField("", [InputRequired(), Length(min=1, max=144, message="Syötteen pituus 1-144 merkkiä")])

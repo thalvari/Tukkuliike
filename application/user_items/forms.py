@@ -1,16 +1,13 @@
 from flask_login import current_user
-from flask_wtf import FlaskForm
 from wtforms import IntegerField
 from wtforms.validators import InputRequired, NumberRange, ValidationError
 
+from application.models import BaseForm
 from application.user_items.models import UserItem
 
 
-class UserItemForm(FlaskForm):
+class UserItemForm(BaseForm):
     quantity = IntegerField("Määrä", [InputRequired(), NumberRange(min=1, max=99, message="Syötä luku väliltä 1-99")])
-
-    class Meta:
-        csrf = False
 
 
 def validate_item_id(form, field):
@@ -18,7 +15,7 @@ def validate_item_id(form, field):
         raise ValidationError("Tuote on jo ostoskorissa")
 
 
-class UserItemCheckForm(UserItemForm):
+class UserItemCheckForm(BaseForm):
     item_id = 0
     quantity = IntegerField("Määrä", [InputRequired(), NumberRange(min=1, max=99, message="Syötä luku väliltä 1-99"),
                                       validate_item_id])

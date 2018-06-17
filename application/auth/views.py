@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_user, logout_user
 
 from application import app, db, login_required
-from application.auth.forms import UserForm, UserLoginForm
+from application.auth.forms import UserForm, UserLoginForm, UserFindForm
 from application.auth.models import User
 from application.invoices.models import Invoice
 from application.user_items.models import UserItem
@@ -50,7 +50,7 @@ def auth_register():
 @app.route("/auth")
 @login_required(role="ANY")
 def auth_index():
-    return render_template("auth/index.html", users=User.query.all())
+    return render_template("auth/index.html", form=UserFindForm(), users=User.query.all())
 
 
 @app.route("/auth/edit")
@@ -84,3 +84,12 @@ def auth_delete(user_id):
     db.session.delete(user)
     db.session().commit()
     return redirect(url_for("auth_index"))
+
+
+@app.route("/auth/find", methods=["POST"])
+def auth_find():
+    form = UserFindForm(request.form)
+    if not form.validate():
+        return render_template("auth/index.html", form=form, users=User.query.all())
+    return render_template("auth/index.html", form=UserFindForm(),
+                           users=User.query.filter(User.username.like("%" + form.username.data + "%")).all())
