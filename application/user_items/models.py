@@ -23,6 +23,10 @@ class UserItem(Base):
                     "AND user_item.ordered = :ordered").params(user_id=user_id, ordered=False)
         result = db.engine.execute(stmt).first()[0]
         if result:
-            return "{:.2f}".format(float(result) / 100)
+            return result
         else:
             return 0
+
+    @staticmethod
+    def calc_cart_total_in_euros(user_id):
+        return "{:.2f}".format(float(UserItem.calc_cart_total(user_id)) / 100)

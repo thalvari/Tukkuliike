@@ -6,8 +6,9 @@ class User(Base):
     __tablename__ = "account"
     username = db.Column(db.String(144), nullable=False, unique=True)
     password = db.Column(db.String(144), nullable=False)
-    user_items = db.relationship("UserItem", backref='user', lazy=True)
     role = db.Column(db.String(144), nullable=False)
+    user_items = db.relationship("UserItem", backref='user', lazy=True)
+    invoices = db.relationship("Invoice", backref='user', lazy=True)
 
     def __init__(self, username, password, role):
         self.username = username

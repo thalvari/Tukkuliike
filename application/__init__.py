@@ -43,14 +43,26 @@ def login_required(role="ANY"):
 
 from application import models, views
 from application.auth import models, views
+from application.invoices import models, views
 from application.items import models, views
 from application.user_items import models, views
 from application.auth.models import User
+from application.items.models import Item
 
 try:
     db.create_all()
     user = User("admin", "password", "ADMIN")
     db.session.add(user)
+    user = User("user", "12345678", "CUSTOMER")
+    db.session.add(user)
+    item = Item("A", 100)
+    db.session.add(item)
+    item = Item("B", 200)
+    db.session.add(item)
+    item = Item("C", 300)
+    db.session.add(item)
+    item = Item("D", 400)
+    db.session.add(item)
     db.session.commit()
 except:
     pass

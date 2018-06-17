@@ -31,6 +31,9 @@
                         <li>
                             <a href="{{ url_for('auth_index') }}">Selaa käyttäjiä</a>
                         </li>
+                        <li>
+                            <a href="{{ url_for('invoices_index') }}">Selaa laskuja</a>
+                        </li>
                     {% endif %}
                     <li>
                         <a href="{{ url_for('items_index') }}">Selaa tuotteita</a>
@@ -49,6 +52,9 @@
                                     <a href="{{ url_for('auth_edit_form') }}">Omat käyttäjätiedot</a>
                                 </li>
                                 {% if current_user.role == "CUSTOMER" %}
+                                    <li>
+                                        <a href="{{ url_for('invoices_index') }}">Omat laskut</a>
+                                    </li>
                                     <li>
                                         <a href="{{ url_for('user_items_ordered_index') }}">Omat tilaukset</a>
                                     </li>

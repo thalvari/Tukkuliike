@@ -4,6 +4,8 @@ from flask_login import current_user, login_user, logout_user
 from application import app, db, login_required
 from application.auth.forms import UserForm, UserLoginForm
 from application.auth.models import User
+from application.invoices.models import Invoice
+from application.user_items.models import UserItem
 
 
 @app.route("/auth/login")
@@ -67,3 +69,18 @@ def auth_edit():
     current_user.password = form.password.data
     db.session().commit()
     return redirect(url_for("index"))
+
+
+@app.route("/auth/delete/<user_id>")
+@login_required(role="ADMIN")
+def auth_delete(user_id):
+    user_items = UserItem.query.filter_by(user_id=user_id).all()
+    for user_item in user_items:
+        db.session.delete(user_item)
+    invoices = Invoice.query.filter_by(user_id=user_id).all()
+    for invoice in invoices:
+        db.session.delete(invoice)
+    user = User.query.get(user_id)
+    db.session.delete(user)
+    db.session().commit()
+    return redirect(url_for("auth_index"))

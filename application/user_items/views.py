@@ -2,6 +2,7 @@ from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
 from application import app, db, login_manager, login_required
+from application.invoices.models import Invoice
 from application.items.models import Item
 from application.user_items.forms import UserItemForm, UserItemCheckForm
 from application.user_items.models import UserItem
@@ -10,7 +11,7 @@ from application.user_items.models import UserItem
 @app.route("/user_items/cart")
 @login_required(role="CUSTOMER")
 def user_items_cart_index():
-    return render_template("user_items/cart.html", cart_total=UserItem.calc_cart_total(current_user.id),
+    return render_template("user_items/cart.html", cart_total=UserItem.calc_cart_total_in_euros(current_user.id),
                            user_items=UserItem.query.filter_by(user_id=current_user.id, ordered=False).all())
 
 
@@ -67,6 +68,8 @@ def user_items_delete(user_item_id):
 @app.route("/user_items/order", methods=["POST"])
 @login_required(role="CUSTOMER")
 def user_items_order():
+    invoice = Invoice(current_user.id, UserItem.calc_cart_total(current_user.id))
+    db.session.add(invoice)
     user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).all()
     for user_item in user_items:
         user_item.ordered = True
