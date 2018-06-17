@@ -18,6 +18,35 @@ Toimintoja:
 * varaston selaus
 * asiakastietojen lisäys, muutos, poisto ja selaus
 
+### Asennusohje
+1. kloonaataan repo komennolla ```git clone git@github.com:thalvari/Tukkuliike.git```
+2. siirrytään kansioon ```Tukkuliike```
+3. luodaan virtuaaliympäristö komennolla ```python3 -m venv venv```
+4. aktivoidaan virtuaaliympäristö komennolla ```source venv/bin/activate```
+5. asennetaan riippuvuudet komennolla ```pip install -r requirements.txt```
+6. käynnistetään sovellus komennolla ```python3 run.py```
+7. sovellus löytyy nyt osoitteesta http://127.0.0.1:5000/
+
+### Käyttöohje
+##### Vierailija
+* yläpalkista löytyy linkit tuotteideen selaamiseen, kirjautumiseen, sekä rekisteröitymiseen
+* käyttäjällä on joko asiakkaan tai ylläpitäjän rooli
+* tuotteiden selaussivulla voidaan tuotetta hakea sen nimen perusteella sekä tarkastella tiettyä tuotetta
+
+##### Asiakas
+* yläpalkista löytyy linkki tuotteideen selaamiseen
+* tuotteiden selaussivulla voidaan tuotetta hakea sen nimen perusteella sekä tarkastella tiettyä tuotetta
+* tuotteen tarkastelusivulla se voidaan lisätä ostoskoriin
+* klikkaamalla yläpalkin oikeasta laidasta löytyvää käyttäjänimeä, aukeaa valikko, josta löytyy linkit omien käyttäjätietojen muokkaamiseen, omien laskujen/omien tilausten/ostoskorin selaamiseen ja uloskirjautumiseen
+* omien laskujen selaussivulla tietty lasku voidaan maksaa
+* ostoskorin selaussivulla sen sisältö voidaan tilata, tietyn tuotteen määrää ostoskorissa voidaan muuttaa tai tuote voidaan poistaa ostoskorista
+
+##### Ylläpitäjä
+* yläpalkista löytyy linkit uuden tuotteen lisäämiseen sekä käyttäjien/laskujen/tuotteiden selaamiseen
+* klikkaamalla yläpalkin oikeasta laidasta löytyvää käyttäjänimeä, aukeaa valikko, josta löytyy linkit omien käyttäjätietojen muokkaamiseen ja uloskirjautumiseen
+* asiakkaiden selaussivulla voidaan asiakasta hakea käyttäjänimen perusteella sekä poistaa tietty asiakas
+* tuotteiden selaussivulla voidaan lisäksi muokata tiettyä tuotetta tai se voidaan poistaa järjestelmästä
+
 ### Muu dokumentaatio
 * [asiakkaan käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/asiakas_käyttötapauskaavio.jpg)
 * [vierailijan käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/vierailija_käyttötapauskaavio.jpg)
