@@ -19,7 +19,7 @@ Toimintoja:
 * asiakastietojen lisäys, muutos, poisto ja selaus
 
 ### Asennusohje
-1. kloonaataan repo komennolla ```git clone git@github.com:thalvari/Tukkuliike.git```
+1. klonaataan repo komennolla ```git clone git@github.com:thalvari/Tukkuliike.git```
 2. siirrytään kansioon ```Tukkuliike```
 3. luodaan sovellukselle paikka Herokuun komennolla ```heroku create```
 4. asetetaan vaadittu ympäristömuuttuja komennolla ```heroku config:set HEROKU=1```
