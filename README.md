@@ -29,15 +29,15 @@ Toimintoja:
 
 ### Käyttöohje
 ##### Vierailija
-* yläpalkista löytyy linkit tuotteideen selaamiseen, kirjautumiseen, sekä rekisteröitymiseen
-* käyttäjällä on joko asiakkaan tai ylläpitäjän rooli
-* tuotteiden selaussivulla voidaan tuotetta hakea sen nimen perusteella sekä tarkastella tiettyä tuotetta
+* yläpalkista löytyy linkit tuotteiden selaamiseen, kirjautumiseen, sekä rekisteröitymiseen
+* kirjautuneella käyttäjällä on joko asiakkaan tai ylläpitäjän rooli
+* tuotteiden selaussivulla voidaan tuotteita hakea nimen perusteella sekä tarkastella tiettyä tuotetta
 
 ##### Asiakas
 * yläpalkista löytyy linkki tuotteiden selaamiseen
-* tuotteiden selaussivulla voidaan tuotetta hakea sen nimen perusteella sekä tarkastella tiettyä tuotetta
-* tuotteen tarkastelusivulla se voidaan lisätä ostoskoriin
-* klikkaamalla yläpalkin oikeasta laidasta löytyvää käyttäjänimeä, aukeaa valikko, josta löytyy linkit omien käyttäjätietojen muokkaamiseen, omien laskujen/omien tilausten/ostoskorin selaamiseen ja uloskirjautumiseen
+* tuotteiden selaussivulla voidaan tuotteita hakea nimen perusteella sekä tarkastella tiettyä tuotetta
+* tuotteen tarkastelusivulla voidaan sitä lisätä ostoskoriin haluttu määrä
+* klikkaamalla yläpalkin oikeasta laidasta löytyvää käyttäjänimeä, aukeaa valikko, josta löytyy linkit omien käyttäjätietojen muokkaamiseen, omien laskujen/omien tilausten/ostoskorin selaamiseen sekä uloskirjautumiseen
 * omien laskujen selaussivulla tietty lasku voidaan maksaa
 * ostoskorin selaussivulla sen sisältö voidaan tilata, tietyn tuotteen määrää ostoskorissa voidaan muuttaa tai tuote voidaan poistaa ostoskorista
 
@@ -45,7 +45,7 @@ Toimintoja:
 * yläpalkista löytyy linkit uuden tuotteen lisäämiseen sekä käyttäjien/laskujen/tuotteiden selaamiseen
 * klikkaamalla yläpalkin oikeasta laidasta löytyvää käyttäjänimeä, aukeaa valikko, josta löytyy linkit omien käyttäjätietojen muokkaamiseen ja uloskirjautumiseen
 * käyttäjien selaussivulla voidaan käyttäjää hakea käyttäjänimen perusteella sekä poistaa tietty asiakas
-* tuotteiden selaussivulla voidaan lisäksi muokata tiettyä tuotetta tai se voidaan poistaa järjestelmästä
+* tuotteiden selaussivulla voidaan nyt lisäksi muokata tiettyä tuotetta tai se voidaan poistaa järjestelmästä
 
 ### Muu dokumentaatio
 * [asiakkaan käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/asiakas_käyttötapauskaavio.jpg)
