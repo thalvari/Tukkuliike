@@ -21,11 +21,11 @@ Toimintoja:
 ### Asennusohje
 1. kloonaataan repo komennolla ```git clone git@github.com:thalvari/Tukkuliike.git```
 2. siirrytään kansioon ```Tukkuliike```
-3. luodaan virtuaaliympäristö komennolla ```python3 -m venv venv```
-4. aktivoidaan virtuaaliympäristö komennolla ```source venv/bin/activate```
-5. asennetaan riippuvuudet komennolla ```pip install -r requirements.txt```
-6. käynnistetään sovellus komennolla ```python3 run.py```
-7. sovellus löytyy nyt osoitteesta http://127.0.0.1:5000/
+3. luodaan sovellukselle paikka Herokuun komennolla ```heroku create```
+4. asetetaan vaadittu ympäristömuuttuja komennolla ```heroku config:set HEROKU=1```
+5. lisätään Herokuun tietokanta komennolla ```heroku addons:add heroku-postgresql:hobby-dev```
+6. työnnetään projekti Herokuun komennolla ```git push heroku master```
+7. sovellus löytyy nyt Herokusta edellisen komennon antamasta osoitteesta
 
 ### Käyttöohje
 ##### Vierailija
