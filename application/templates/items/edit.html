@@ -4,6 +4,7 @@
     <form method="POST" action="{{ url_for('items_edit', item_id=item.id) }}">
         {{ wtf.form_field(form.name, placeholder=item.name) }}
         {{ wtf.form_field(form.price, type="number", placeholder=item.price) }}
+        {{ wtf.form_field(form.threshold, type="number", placeholder=item.threshold) }}
         <button type="submit" class="btn btn-primary">Muokkaa</button>
     </form>
 {% endblock %}

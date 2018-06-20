@@ -4,6 +4,7 @@
     <form method="POST" action="{{ url_for('items_create') }}">
         {{ wtf.form_field(form.name) }}
         {{ wtf.form_field(form.price, type="number") }}
+        {{ wtf.form_field(form.threshold, type="number") }}
         <button type="submit" class="btn btn-primary">Lisää</button>
     </form>
 {% endblock %}

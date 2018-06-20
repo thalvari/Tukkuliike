@@ -10,6 +10,10 @@
         <tr>
             <th>Nimi</th>
             <th>Hinta (€)</th>
+            <th>Varastossa</th>
+            {% if current_user.role == "ADMIN" %}
+                <th>Tilauskynnys</th>
+            {% endif %}
             <th>Lisätty</th>
             <th style="width: 1%"></th>
             {% if current_user.is_authenticated %}
@@ -23,6 +27,10 @@
             <tr>
                 <td>{{ item.name }}</td>
                 <td>{{ item.get_price_in_euros() }}</td>
+                <td>{{ item.stock }}</td>
+                {% if current_user.role == "ADMIN" %}
+                    <td>{{ item.threshold }}</td>
+                {% endif %}
                 <td>{{ item.get_date_created_no_millis() }}</td>
                 <td>
                     <form action="{{ url_for('items_view', item_id=item.id) }}">

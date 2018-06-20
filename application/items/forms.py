@@ -17,6 +17,8 @@ class ItemForm(BaseForm):
                                 item_validate_name])
     price = IntegerField("Hinta (senttiä)",
                          [InputRequired(), NumberRange(min=1, max=999999, message="Syötä luku väliltä 1-999999")])
+    threshold = IntegerField("Tilauskynnys",
+                             [InputRequired(), NumberRange(min=1, max=999, message="Syötä luku väliltä 1-999")])
 
 
 class ItemFindForm(BaseForm):

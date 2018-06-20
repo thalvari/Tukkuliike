@@ -16,6 +16,11 @@ class UserItem(Base):
         self.quantity = quantity
         self.ordered = False
 
+    def order(self):
+        self.ordered = True
+        self.item.stock -= self.quantity
+        self.item.restock()
+
     @staticmethod
     def calc_cart_total(user_id):
         stmt = text("SELECT SUM(item.price * user_item.quantity) FROM user_item LEFT JOIN item "

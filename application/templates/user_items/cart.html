@@ -6,6 +6,7 @@
         <tr>
             <th>Tuotteen nimi</th>
             <th>Hinta (€)</th>
+            <th>Varastossa</th>
             <th>Määrä</th>
             <th style="width: 1%"></th>
             <th style="width: 1%"></th>
@@ -16,6 +17,7 @@
             <tr>
                 <td>{{ user_item.item.name }}</td>
                 <td>{{ user_item.item.get_price_in_euros() }}</td>
+                <td>{{ user_item.item.stock }}</td>
                 <td>{{ user_item.quantity }}</td>
                 <td>
                     <form action="{{ url_for('user_items_edit_form', user_item_id=user_item.id) }}">
@@ -32,7 +34,14 @@
         </tbody>
     </table>
     <label class="pull-right">Yhteensä: {{ cart_total }} €</label>
-    <form method="POST" action="{{ url_for('user_items_order') }}">
+    <form class="form-group has-error" method="POST" action="{{ url_for('user_items_order') }}">
+        {%- if form.errors %}
+            {%- for fieldname, errors in form.errors.items() %}
+                {%- for error in errors %}
+                    <p class="help-block">{{ error }}</p>
+                {%- endfor %}
+            {%- endfor %}
+        {%- endif %}
         <button type="submit" class="btn btn-primary">Tilaa</button>
     </form>
 {% endblock %}

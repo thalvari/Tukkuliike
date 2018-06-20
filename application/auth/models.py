@@ -10,7 +10,7 @@ class User(Base):
     user_items = db.relationship("UserItem", backref='user', lazy=True)
     invoices = db.relationship("Invoice", backref='user', lazy=True)
 
-    def __init__(self, username, password, role):
+    def __init__(self, username, password, role="CUSTOMER"):
         self.username = username
         self.password = password
         self.role = role
