@@ -34,7 +34,7 @@
                     {% elif invoice.is_expired() %}
                         <form action="{{ url_for('invoices_reminder', invoice_id=invoice.id) }}">
                             {% if invoice.is_reminder() %}
-                                <button type="submit" class="btn btn-success btn-sm" disabled="disabled">Karhu luotu
+                                <button type="submit" class="btn btn-success btn-sm" disabled="disabled">Luo karhu
                                 </button>
                             {% else %}
                                 <button type="submit" class="btn btn-primary btn-sm">Luo karhu</button>
