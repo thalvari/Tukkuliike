@@ -48,10 +48,8 @@ Toimintoja:
 * tuotteiden selaussivulla voidaan nyt lisäksi muokata tiettyä tuotetta tai se voidaan poistaa järjestelmästä
 
 ### Muu dokumentaatio
-* [asiakkaan käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/asiakas_käyttötapauskaavio.jpg)
-* [vierailijan käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/vierailija_käyttötapauskaavio.jpg)
-* [ylläpitäjän käyttötapauskaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/ylläpitäjä_käyttötapauskaavio.jpg)
-* [tietokantakaavio](https://raw.githubusercontent.com/thalvari/Tukkuliike/master/documentation/tietokantakaavio.jpg)
+* [käyttötapaukset](/documentation/käyttötapaukset.md)
+* [tietokantarakenne](/documentation/tietokantarakenne.md)
 
 ### Heroku
 * https://tsoha-tukkuliike.herokuapp.com/
