@@ -24,7 +24,7 @@ def items_create():
     form = ItemForm(request.form)
     if not form.validate():
         return render_template("items/new.html", form=form)
-    item = Item(form.name.data, form.price.data, form.data.threshold)
+    item = Item(form.name.data, form.price.data, form.threshold.data)
     db.session.add(item)
     db.session.commit()
     return redirect(url_for("items_index"))
