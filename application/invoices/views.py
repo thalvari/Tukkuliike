@@ -24,3 +24,12 @@ def invoices_pay(invoice_id):
     invoice.payed = True
     db.session().commit()
     return redirect(url_for("invoices_index"))
+
+
+@app.route("/invoices/reminder/<invoice_id>")
+@login_required(role="ADMIN")
+def invoices_reminder(invoice_id):
+    invoice = Invoice.query.get(invoice_id)
+    invoice.total = int(round(Invoice.interest * float(invoice.total)))
+    db.session().commit()
+    return redirect(url_for("invoices_index"))
