@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block template %}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Käyttäjänimi</th>
+            <th>Rooli</th>
+            <th>Rekisteröitynyt</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>
+                {% if user.role == "ADMIN" %}
+                    Ylläpitäjä
+                {% else %}
+                    Asiakas
+                {% endif %}
+            </td>
+            <td>{{ user.get_date_created_no_millis() }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

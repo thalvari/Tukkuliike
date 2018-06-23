@@ -48,9 +48,15 @@ def auth_register():
 
 
 @app.route("/auth")
-@login_required(role="ANY")
+@login_required(role="ADMIN")
 def auth_index():
     return render_template("auth/index.html", form=UserFindForm(), users=User.query.all())
+
+
+@app.route("/auth/view/<user_id>")
+@login_required(role="ADMIN")
+def auth_view(user_id):
+    return render_template("auth/view.html", user=User.query.get(user_id))
 
 
 @app.route("/auth/edit")
@@ -87,6 +93,7 @@ def auth_delete(user_id):
 
 
 @app.route("/auth/find", methods=["POST"])
+@login_required(role="ADMIN")
 def auth_find():
     form = UserFindForm(request.form)
     if not form.validate():

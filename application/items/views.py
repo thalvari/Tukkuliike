@@ -32,7 +32,8 @@ def items_create():
 
 @app.route("/items/view/<item_id>")
 def items_view(item_id):
-    return render_template("items/view.html", form=UserItemCheckForm(), item=Item.query.get(item_id))
+    return render_template("items/view.html", form=UserItemCheckForm(), item=Item.query.get(item_id),
+                           ordered_count=UserItem.calc_ordered_count(item_id))
 
 
 @app.route("/items/edit/<item_id>")
