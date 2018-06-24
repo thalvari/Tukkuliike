@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
-from application import app, db, login_manager, login_required
+from application import app, db, login_manager, login_required, per_page
 from application.invoices.models import Invoice
 from application.items.models import Item
 from application.user_items.forms import UserItemForm, UserItemCheckForm, UserItemOrderForm
@@ -11,16 +11,18 @@ from application.user_items.models import UserItem
 @app.route("/user_items/cart")
 @login_required(role="CUSTOMER")
 def user_items_cart_index():
+    page = int(request.args.get("page", 1))
+    user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).paginate(page=page, per_page=per_page)
     return render_template("user_items/cart.html", form=UserItemOrderForm(),
-                           cart_total=UserItem.calc_cart_total_in_euros(current_user.id),
-                           user_items=UserItem.query.filter_by(user_id=current_user.id, ordered=False).all())
+                           cart_total=UserItem.calc_cart_total_in_euros(current_user.id), user_items=user_items)
 
 
 @app.route("/user_items/ordered")
 @login_required(role="CUSTOMER")
 def user_items_ordered_index():
-    return render_template("user_items/ordered.html",
-                           user_items=UserItem.query.filter_by(user_id=current_user.id, ordered=True).all())
+    page = int(request.args.get("page", 1))
+    user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=True).paginate(page=page, per_page=per_page)
+    return render_template("user_items/ordered.html", user_items=user_items)
 
 
 @app.route("/user_items/new/<item_id>", methods=["POST"])
@@ -71,9 +73,10 @@ def user_items_delete(user_item_id):
 def user_items_order():
     form = UserItemOrderForm(request.form)
     if not form.validate():
+        user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False) \
+            .paginate(page=1, per_page=per_page)
         return render_template("user_items/cart.html", form=form,
-                               cart_total=UserItem.calc_cart_total_in_euros(current_user.id),
-                               user_items=UserItem.query.filter_by(user_id=current_user.id, ordered=False).all())
+                               cart_total=UserItem.calc_cart_total_in_euros(current_user.id), user_items=user_items)
     invoice = Invoice(current_user.id, UserItem.calc_cart_total(current_user.id))
     db.session.add(invoice)
     user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).all()

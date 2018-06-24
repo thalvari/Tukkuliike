@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 
 {% block template %}
-    {{ error }}
     <form method="POST" action="{{ url_for('auth_register') }}">
         {{ wtf.form_field(form.username) }}
         {{ wtf.form_field(form.password) }}

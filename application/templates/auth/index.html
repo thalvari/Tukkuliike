@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block template %}
+    <h1>Käyttäjät</h1>
     <form class="form-inline pull-right" method="POST" action="{{ url_for('auth_find') }}">
         {{ wtf.form_field(form.username, placeholder="Käyttäjänimi") }}
         <button type="submit" class="btn btn-primary btn-sm">Hae</button>
@@ -17,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for user in users %}
+        {% for user in users.items %}
             <tr>
                 <td>{{ user.username }}</td>
                 <td>
@@ -34,21 +35,26 @@
                     </form>
                 </td>
                 <td>
-                    {% if user.id == current_user.id %}
-                        <form action="{{ url_for('auth_edit_form') }}">
+                    <form action="{{ url_for('auth_edit_form') }}">
+                        {% if user.id == current_user.id %}
                             <button type="submit" class="btn btn-primary btn-sm">Muokkaa</button>
-                        </form>
-                    {% endif %}
+                        {% else %}
+                            <button type="submit" class="btn btn-primary btn-sm invisible">Muokkaa</button>
+                        {% endif %}
+                    </form>
                 </td>
                 <td>
-                    {% if user.role == "CUSTOMER" %}
-                        <form action="{{ url_for('auth_delete', user_id=user.id) }}">
-                            <button type="submit" class="btn btn-primary btn-sm">Poista</button>
-                        </form>
-                    {% endif %}
+                    <form action="{{ url_for('auth_delete', user_id=user.id) }}">
+                        <button type="submit" class="btn btn-primary btn-sm">Poista</button>
+                    </form>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    {% if query is defined %}
+        {{ render_pagination(users, args={"query":query}) }}
+    {% else %}
+        {{ render_pagination(users) }}
+    {% endif %}
 {% endblock %}

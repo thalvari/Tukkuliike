@@ -26,6 +26,8 @@ Toimintoja:
 5. lisätään Herokuun tietokanta komennolla ```heroku addons:add heroku-postgresql:hobby-dev```
 6. työnnetään projekti Herokuun komennolla ```git push heroku master```
 7. sovellus löytyy nyt Herokusta edellisen komennon antamasta osoitteesta
+8. muokataan Herokun tietokantaa komennolla ```heroku pg:psql```
+9. lisätään ylläpitäjä komennolla ```INSERT INTO account (username, password, role) VALUES ('admin', 'password', 'ADMIN');```
 
 ### Käyttöohje
 ##### Vierailija

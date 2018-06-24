@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 
-from application import app, db, login_required
+from application import app, db, login_required, per_page
 from application.items.forms import ItemForm, ItemFindForm
 from application.items.models import Item
 from application.user_items.forms import UserItemCheckForm
@@ -9,7 +9,9 @@ from application.user_items.models import UserItem
 
 @app.route("/items")
 def items_index():
-    return render_template("items/index.html", form=ItemFindForm(), items=Item.query.all())
+    page = int(request.args.get("page", 1))
+    items = Item.query.paginate(page=page, per_page=per_page)
+    return render_template("items/index.html", form=ItemFindForm(), items=items)
 
 
 @app.route("/items/new")
@@ -73,6 +75,13 @@ def items_delete(item_id):
 def items_find():
     form = ItemFindForm(request.form)
     if not form.validate():
-        return render_template("items/index.html", form=form, items=Item.query.all())
-    return render_template("items/index.html", form=ItemFindForm(),
-                           items=Item.query.filter(Item.name.like("%" + form.name.data + "%")).all())
+        return render_template("items/index.html", form=form, items=Item.query.paginate(page=1, per_page=per_page))
+    return redirect(url_for("items_find_index", query=form.name.data))
+
+
+@app.route("/items/find")
+def items_find_index():
+    query = request.args.get("query", "")
+    page = int(request.args.get("page", 1))
+    items = Item.query.filter(Item.name.like("%" + query + "%")).paginate(page=page, per_page=per_page)
+    return render_template("items/index.html", form=ItemFindForm(), query=query, items=items)

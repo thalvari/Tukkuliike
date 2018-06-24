@@ -1,6 +1,17 @@
 {% extends "layout.html" %}
 
 {% block template %}
+    {% if current_user.role == "ADMIN" %}
+        <h1>Maksamattomat laskut</h1>
+    {% else %}
+        <h1>Omat laskut</h1>
+    {% endif %}
+    {% if current_user.role == "ADMIN" %}
+        <form class="form-inline pull-right" method="POST" action="{{ url_for('invoices_find') }}">
+            {{ wtf.form_field(form.username, placeholder="Käyttäjänimi") }}
+            <button type="submit" class="btn btn-primary btn-sm">Hae</button>
+        </form>
+    {% endif %}
     <table class="table table-striped">
         <thead>
         <tr>
@@ -14,7 +25,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for invoice in invoices %}
+        {% for invoice in invoices.items %}
             <tr>
                 {% if current_user.role == "ADMIN" %}
                     <td>{{ invoice.user.username }}</td>
@@ -46,4 +57,9 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if query is defined %}
+        {{ render_pagination(invoices, args={"query":query}) }}
+    {% else %}
+        {{ render_pagination(invoices) }}
+    {% endif %}
 {% endblock %}

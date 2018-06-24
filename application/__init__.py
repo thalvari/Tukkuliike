@@ -16,6 +16,7 @@ else:
     app.config["SQLALCHEMY_ECHO"] = True
 db = SQLAlchemy(app)
 app.config["SECRET_KEY"] = urandom(32)
+per_page = 5
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "auth_login_form"
@@ -51,18 +52,5 @@ from application.items.models import Item
 
 try:
     db.create_all()
-    user = User("admin", "password", "ADMIN")
-    db.session.add(user)
-    user = User("user", "12345678")
-    db.session.add(user)
-    item = Item("A", 100, 10)
-    db.session.add(item)
-    item = Item("B", 200, 20)
-    db.session.add(item)
-    item = Item("C", 300, 30)
-    db.session.add(item)
-    item = Item("D", 400, 40)
-    db.session.add(item)
-    db.session.commit()
 except:
     pass

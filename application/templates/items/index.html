@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block template %}
+    <h1>Tuotteet</h1>
     <form class="form-inline pull-right" method="POST" action="{{ url_for('items_find') }}">
         {{ wtf.form_field(form.name, placeholder="Tuotteen nimi") }}
         <button type="submit" class="btn btn-primary btn-sm">Hae</button>
@@ -23,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for item in items %}
+        {% for item in items.items %}
             <tr>
                 <td>{{ item.name }}</td>
                 <td>{{ item.get_price_in_euros() }}</td>
@@ -53,4 +54,9 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if query is defined %}
+        {{ render_pagination(items, args={"query":query}) }}
+    {% else %}
+        {{ render_pagination(items) }}
+    {% endif %}
 {% endblock %}

@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_user, logout_user
 
-from application import app, db, login_required
+from application import app, db, login_required, per_page
 from application.auth.forms import UserForm, UserLoginForm, UserFindForm
 from application.auth.models import User
 from application.invoices.models import Invoice
@@ -50,7 +50,9 @@ def auth_register():
 @app.route("/auth")
 @login_required(role="ADMIN")
 def auth_index():
-    return render_template("auth/index.html", form=UserFindForm(), users=User.query.all())
+    page = int(request.args.get("page", 1))
+    users = User.query.paginate(page=page, per_page=per_page)
+    return render_template("auth/index.html", form=UserFindForm(), users=users)
 
 
 @app.route("/auth/view/<user_id>")
@@ -97,6 +99,14 @@ def auth_delete(user_id):
 def auth_find():
     form = UserFindForm(request.form)
     if not form.validate():
-        return render_template("auth/index.html", form=form, users=User.query.all())
-    return render_template("auth/index.html", form=UserFindForm(),
-                           users=User.query.filter(User.username.like("%" + form.username.data + "%")).all())
+        return render_template("auth/index.html", form=form, users=User.query.paginate(page=1, per_page=per_page))
+    return redirect(url_for("auth_find_index", query=form.username.data))
+
+
+@app.route("/auth/find")
+@login_required(role="ADMIN")
+def auth_find_index():
+    query = request.args.get("query", "")
+    page = int(request.args.get("page", 1))
+    users = User.query.filter(User.username.like("%" + query + "%")).paginate(page=page, per_page=per_page)
+    return render_template("auth/index.html", form=UserFindForm(), query=query, users=users)
