@@ -1,3 +1,5 @@
+from sqlalchemy import text
+
 from application import db
 from application.models import Base
 
@@ -26,3 +28,14 @@ class User(Base):
 
     def is_authenticated(self):
         return True
+
+    @staticmethod
+    def get_ordered_items_count(user_id):
+        stmt = text("SELECT SUM(user_item.quantity) FROM user_item LEFT JOIN account "
+                    "ON user_item.user_id = account.id WHERE user_item.user_id = :user_id "
+                    "AND user_item.ordered = :ordered").params(user_id=user_id, ordered=True)
+        result = db.engine.execute(stmt).first()[0]
+        if result:
+            return result
+        else:
+            return 0

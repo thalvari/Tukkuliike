@@ -14,7 +14,7 @@ def user_items_cart_index():
     page = int(request.args.get("page", 1))
     user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).paginate(page=page, per_page=per_page)
     return render_template("user_items/cart.html", form=UserItemOrderForm(),
-                           cart_total=UserItem.calc_cart_total_in_euros(current_user.id), user_items=user_items)
+                           cart_total=UserItem.get_cart_total_in_euros(current_user.id), user_items=user_items)
 
 
 @app.route("/user_items/ordered")
@@ -76,8 +76,8 @@ def user_items_order():
         user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False) \
             .paginate(page=1, per_page=per_page)
         return render_template("user_items/cart.html", form=form,
-                               cart_total=UserItem.calc_cart_total_in_euros(current_user.id), user_items=user_items)
-    invoice = Invoice(current_user.id, UserItem.calc_cart_total(current_user.id))
+                               cart_total=UserItem.get_cart_total_in_euros(current_user.id), user_items=user_items)
+    invoice = Invoice(current_user.id, UserItem.get_cart_total(current_user.id))
     db.session.add(invoice)
     user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).all()
     for user_item in user_items:

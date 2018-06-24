@@ -34,6 +34,6 @@
         </form>
     {% endif %}
     {% if current_user.role == "ADMIN" %}
-        <label class="pull-right">Tilattu: {{ ordered_count }} kpl</label>
+        <label class="pull-right">Tilattu: {{ times_ordered }} kpl</label>
     {% endif %}
 {% endblock %}

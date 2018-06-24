@@ -58,7 +58,8 @@ def auth_index():
 @app.route("/auth/view/<user_id>")
 @login_required(role="ADMIN")
 def auth_view(user_id):
-    return render_template("auth/view.html", user=User.query.get(user_id))
+    return render_template("auth/view.html", user=User.query.get(user_id),
+                           ordered_items_count=User.get_ordered_items_count(user_id))
 
 
 @app.route("/auth/edit")

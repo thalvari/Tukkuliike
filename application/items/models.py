@@ -1,3 +1,5 @@
+from sqlalchemy.sql import text
+
 from application import db
 from application.models import Base
 
@@ -21,3 +23,14 @@ class Item(Base):
     def restock(self):
         if self.stock < self.threshold:
             self.stock += 2 * self.threshold
+
+    @staticmethod
+    def get_times_ordered(item_id):
+        stmt = text("SELECT SUM(user_item.quantity) FROM user_item LEFT JOIN item "
+                    "ON user_item.item_id = item.id WHERE user_item.item_id = :item_id "
+                    "AND user_item.ordered = :ordered").params(item_id=item_id, ordered=True)
+        result = db.engine.execute(stmt).first()[0]
+        if result:
+            return result
+        else:
+            return 0

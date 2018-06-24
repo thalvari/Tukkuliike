@@ -25,4 +25,7 @@
         </tr>
         </tbody>
     </table>
+    {% if user.role == "CUSTOMER" %}
+        <label class="pull-right">Tilattuja tuotteita: {{ ordered_items_count }} kpl</label>
+    {% endif %}
 {% endblock %}
