@@ -45,7 +45,11 @@
                 </td>
                 <td>
                     <form action="{{ url_for('auth_delete', user_id=user.id) }}">
-                        <button type="submit" class="btn btn-primary btn-sm">Poista</button>
+                        {% if user.role == "CUSTOMER" %}
+                            <button type="submit" class="btn btn-primary btn-sm">Poista</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-primary btn-sm invisible">Poista</button>
+                        {% endif %}
                     </form>
                 </td>
             </tr>
