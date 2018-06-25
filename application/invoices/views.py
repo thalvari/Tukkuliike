@@ -12,9 +12,11 @@ from application.invoices.models import Invoice
 def invoices_index():
     page = int(request.args.get("page", 1))
     if current_user.role == "ADMIN":
-        invoices = Invoice.query.join(Invoice.user).order_by(User.username).paginate(page=page, per_page=per_page)
+        invoices = Invoice.query.join(Invoice.user).order_by(User.username, Invoice.date_created) \
+            .paginate(page=page, per_page=per_page)
     else:
-        invoices = Invoice.query.filter_by(user_id=current_user.id).paginate(page=page, per_page=per_page)
+        invoices = Invoice.query.filter_by(user_id=current_user.id).order_by(Invoice.date_created) \
+            .paginate(page=page, per_page=per_page)
     return render_template("invoices/index.html", form=UserFindForm(), invoices=invoices)
 
 
@@ -43,7 +45,8 @@ def invoices_reminder(invoice_id):
 def invoices_find():
     form = UserFindForm(request.form)
     if not form.validate():
-        invoices = Invoice.query.join(Invoice.user).order_by(User.username).paginate(page=1, per_page=per_page)
+        invoices = Invoice.query.join(Invoice.user).order_by(User.username, Invoice.date_created) \
+            .paginate(page=1, per_page=per_page)
         return render_template("invoices/index.html", form=form, invoices=invoices)
     return redirect(url_for("invoices_find_index", query=form.username.data))
 
@@ -53,6 +56,6 @@ def invoices_find():
 def invoices_find_index():
     query = request.args.get("query", "")
     page = int(request.args.get("page", 1))
-    invoices = Invoice.query.join(Invoice.user).filter(User.username.like("%" + query + "%")).order_by(User.username) \
-        .paginate(page=page, per_page=per_page)
+    invoices = Invoice.query.join(Invoice.user).filter(User.username.like("%" + query + "%")) \
+        .order_by(User.username, Invoice.date_created).paginate(page=page, per_page=per_page)
     return render_template("invoices/index.html", form=UserFindForm(), query=query, invoices=invoices)

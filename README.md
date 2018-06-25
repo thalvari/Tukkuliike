@@ -24,7 +24,7 @@ Toimintoja:
 5. lisätään Herokuun tietokanta komennolla ```heroku addons:add heroku-postgresql:hobby-dev```
 6. työnnetään projekti Herokuun komennolla ```git push heroku master```
 7. siirrytään muokkaamaan Herokun tietokantaa komennolla ```heroku pg:psql```
-8. lisätään ylläpitäjä komennolla ```INSERT INTO account (date_created, date_modified, username, password, role) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin', 'password', 'ADMIN')```
+8. lisätään ylläpitäjä komennolla ```INSERT INTO account (date_created, date_modified, username, password, role) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin', 'password', 'ADMIN');```
 9. sovelluksen osoite Herokussa saadaan komennolla ```heroku info -s  | grep web_url | cut -d= -f2```
 
 ### Käyttöohje
