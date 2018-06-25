@@ -9,12 +9,10 @@ class Invoice(Base):
     interest = 1.1
     user_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     total = db.Column(db.Integer, nullable=False)
-    payed = db.Column(db.Boolean, nullable=False)
 
     def __init__(self, user_id, total):
         self.user_id = user_id
         self.total = total
-        self.payed = False
 
     def get_total_in_euros(self):
         return "{:.2f}".format(float(self.total) / 100)
@@ -25,5 +23,5 @@ class Invoice(Base):
     def is_reminder(self):
         return self.date_modified > self.date_created
 
-    def get_expiration_date_time_no_millis(self):
+    def get_expiration_date_no_millis(self):
         return (self.date_created + Invoice.expiration_time).strftime('%Y-%m-%d %H:%M:%S')

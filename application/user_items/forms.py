@@ -23,7 +23,7 @@ class UserItemCheckForm(BaseForm):
 
 
 def validate_invoices(form, field):
-    invoices = Invoice.query.filter_by(user_id=current_user.id, payed=False).all()
+    invoices = Invoice.query.filter_by(user_id=current_user.id).all()
     for invoice in invoices:
         if invoice.is_reminder():
             raise ValidationError("Käyttäjällä on maksamattomia karhuja")

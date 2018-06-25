@@ -16,11 +16,11 @@ else:
     app.config["SQLALCHEMY_ECHO"] = True
 db = SQLAlchemy(app)
 app.config["SECRET_KEY"] = urandom(32)
-per_page = 5
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "auth_login_form"
 login_manager.login_message = "Tämä toiminto vaatii kirjautumisen"
+per_page = 5
 
 
 @login_manager.user_loader

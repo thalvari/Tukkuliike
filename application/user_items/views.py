@@ -12,25 +12,26 @@ from application.user_items.models import UserItem
 @login_required(role="CUSTOMER")
 def user_items_cart_index():
     page = int(request.args.get("page", 1))
-    user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).paginate(page=page, per_page=per_page)
-    return render_template("user_items/cart.html", form=UserItemOrderForm(),
-                           cart_total=UserItem.get_cart_total_in_euros(current_user.id), user_items=user_items)
+    user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).join(UserItem.item) \
+        .order_by(Item.name).paginate(page=page, per_page=per_page)
+    return render_template("user_items/cart.html", form=UserItemOrderForm(), user_items=user_items,
+                           cart_total=UserItem.get_cart_total_in_euros(current_user.id))
 
 
 @app.route("/user_items/ordered")
 @login_required(role="CUSTOMER")
 def user_items_ordered_index():
     page = int(request.args.get("page", 1))
-    user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=True).paginate(page=page, per_page=per_page)
+    user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=True).join(UserItem.item) \
+        .order_by(UserItem.date_modified.desc(), Item.name).paginate(page=page, per_page=per_page)
     return render_template("user_items/ordered.html", user_items=user_items)
 
 
 @app.route("/user_items/new/<item_id>", methods=["POST"])
 @login_required(role="CUSTOMER")
 def user_items_create(item_id):
-    item_id = int(item_id)
     form = UserItemCheckForm(request.form)
-    form.item_id = item_id
+    form.item_id = int(item_id)
     if not form.validate():
         return render_template("items/view.html", form=form, item=Item.query.get(item_id))
     user_item = UserItem(item_id, current_user.id, form.quantity.data)
@@ -64,6 +65,8 @@ def user_items_edit(user_item_id):
 @login_required(role="CUSTOMER")
 def user_items_delete(user_item_id):
     user_item = UserItem.query.get(user_item_id)
+    if user_item.user_id != current_user.id:
+        return login_manager.unauthorized()
     db.session.delete(user_item)
     db.session().commit()
     return redirect(url_for("user_items_cart_index"))
@@ -74,10 +77,10 @@ def user_items_delete(user_item_id):
 def user_items_order():
     form = UserItemOrderForm(request.form)
     if not form.validate():
-        user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False) \
-            .paginate(page=1, per_page=per_page)
-        return render_template("user_items/cart.html", form=form,
-                               cart_total=UserItem.get_cart_total_in_euros(current_user.id), user_items=user_items)
+        user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).join(UserItem.item) \
+            .order_by(Item.name).paginate(page=1, per_page=per_page)
+        return render_template("user_items/cart.html", form=form, user_items=user_items,
+                               cart_total=UserItem.get_cart_total_in_euros(current_user.id))
     invoice = Invoice(current_user.id, UserItem.get_cart_total(current_user.id))
     db.session.add(invoice)
     user_items = UserItem.query.filter_by(user_id=current_user.id, ordered=False).all()

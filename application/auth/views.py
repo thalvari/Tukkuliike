@@ -51,7 +51,7 @@ def auth_register():
 @login_required(role="ADMIN")
 def auth_index():
     page = int(request.args.get("page", 1))
-    users = User.query.paginate(page=page, per_page=per_page)
+    users = User.query.order_by(User.username).paginate(page=page, per_page=per_page)
     return render_template("auth/index.html", form=UserFindForm(), users=users)
 
 
@@ -83,12 +83,8 @@ def auth_edit():
 @app.route("/auth/delete/<user_id>")
 @login_required(role="ADMIN")
 def auth_delete(user_id):
-    user_items = UserItem.query.filter_by(user_id=user_id).all()
-    for user_item in user_items:
-        db.session.delete(user_item)
-    invoices = Invoice.query.filter_by(user_id=user_id).all()
-    for invoice in invoices:
-        db.session.delete(invoice)
+    UserItem.query.filter_by(user_id=user_id).delete()
+    Invoice.query.filter_by(user_id=user_id).delete()
     user = User.query.get(user_id)
     db.session.delete(user)
     db.session().commit()
@@ -100,7 +96,8 @@ def auth_delete(user_id):
 def auth_find():
     form = UserFindForm(request.form)
     if not form.validate():
-        return render_template("auth/index.html", form=form, users=User.query.paginate(page=1, per_page=per_page))
+        users = User.query.order_by(User.username).paginate(page=1, per_page=per_page)
+        return render_template("auth/index.html", form=form, users=users)
     return redirect(url_for("auth_find_index", query=form.username.data))
 
 
@@ -109,5 +106,6 @@ def auth_find():
 def auth_find_index():
     query = request.args.get("query", "")
     page = int(request.args.get("page", 1))
-    users = User.query.filter(User.username.like("%" + query + "%")).paginate(page=page, per_page=per_page)
+    users = User.query.filter(User.username.like("%" + query + "%")).order_by(User.username) \
+        .paginate(page=page, per_page=per_page)
     return render_template("auth/index.html", form=UserFindForm(), query=query, users=users)

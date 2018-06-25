@@ -4,7 +4,7 @@
     {% if current_user.role == "ADMIN" %}
         <h1>Maksamattomat laskut</h1>
     {% else %}
-        <h1>Omat laskut</h1>
+        <h1>Omat maksamattomat laskut</h1>
     {% endif %}
     {% if current_user.role == "ADMIN" %}
         <form class="form-inline pull-right" method="POST" action="{{ url_for('invoices_find') }}">
@@ -32,7 +32,7 @@
                 {% endif %}
                 <td>{{ invoice.get_total_in_euros() }}</td>
                 <td>{{ invoice.get_date_created_no_millis() }}</td>
-                <td>{{ invoice.get_expiration_date_time_no_millis() }}</td>
+                <td>{{ invoice.get_expiration_date_no_millis() }}</td>
                 <td>
                     {% if current_user.role == "CUSTOMER" %}
                         <form action="{{ url_for('invoices_pay', invoice_id=invoice.id) }}">

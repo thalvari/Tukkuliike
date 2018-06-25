@@ -23,7 +23,7 @@ Toimintoja:
 4. asetetaan vaadittu ympäristömuuttuja komennolla ```heroku config:set HEROKU=1```
 5. lisätään Herokuun tietokanta komennolla ```heroku addons:add heroku-postgresql:hobby-dev```
 6. työnnetään projekti Herokuun komennolla ```git push heroku master```
-7. muokataan Herokun tietokantaa komennolla ```heroku pg:psql```
+7. siirrytään muokkaamaan Herokun tietokantaa komennolla ```heroku pg:psql```
 8. lisätään ylläpitäjä komennolla ```INSERT INTO account (date_created, date_modified, username, password, role) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin', 'password', 'ADMIN')```
 9. sovelluksen osoite Herokussa saadaan komennolla ```heroku info -s  | grep web_url | cut -d= -f2```
 
@@ -38,7 +38,7 @@ Toimintoja:
 * yläpalkista löytyy linkki tuotteiden selaamiseen
 * klikkaamalla yläpalkin oikeasta laidasta löytyvää käyttäjänimeä, aukeaa valikko, josta löytyy linkit omien käyttäjätietojen muokkaamiseen, omien laskujen/omien tilausten/ostoskorin selaamiseen sekä uloskirjautumiseen
 * tuotteiden selaussivulla tuotteita voidaan hakea nimen perusteella tai siirtyä tietyn tuotteen tarkastelusivulle
-* tuotteen tarkastelusivulla voidaan sitä lisätä ostoskoriin haluttu määrä
+* tuotteen tarkastelusivulla sitä voidaan lisätä ostoskoriin haluttu määrä
 * omien laskujen selaussivulla tietty lasku tai karhu voidaan maksaa
 * ostoskorin selaussivulla sen sisältö voidaan tilata, tietyn tuotteen määrää ostoskorissa voidaan muuttaa tai tuote voidaan poistaa ostoskorista
 
@@ -47,22 +47,25 @@ Toimintoja:
 * klikkaamalla yläpalkin oikeasta laidasta löytyvää käyttäjänimeä, aukeaa valikko, josta löytyy linkit omien käyttäjätietojen muokkaamiseen sekä uloskirjautumiseen
 * käyttäjien selaussivulla käyttäjiä voidaan hakea käyttäjänimen perusteella, siirtyä tietyn käyttäjän tarkastelusivulle/omien käyttäjätietojen muokkaamissivulle sekä poistaa tietty asiakas
 * laskujen selaamissivulla laskuja voidaan hakea käyttäjänimen perusteella sekä luoda karhu erääntyneen laskun tilalle
-* tuotteiden selaussivulla tuotteita voidaan hakea nimen perusteella, siirtyä tietyn tuotteen tarkastelu-/muokkaussivulle tai poistaa se järjestelmästä
+* tuotteiden selaussivulla tuotteita voidaan hakea nimen perusteella, siirtyä tietyn tuotteen tarkastelu-/muokkaussivulle sekä poistaa tuote järjestelmästä
 
 ### Rajoitteet
 * ylläpitäjät lisätään tietokantaan manuaalisesti asennusohjeiden mukaisesti
 * ylläpitäjiä ei voi poistaa
-* sivutus on toteutettu s.e. kaikilla selaussivuilla on viisi alkiota
+* sivutus on toteutettu s.e. kaikilla selaussivuilla on viisi riviä
 * kaikki laskut on asetettu erääntymään yhdessä minuutissa
 * kaikkien karhujen viivästyskorko on 10%
-* varaston täydennystilaus on aina kaksi kertaa tuotteen tilauskynnys
+* varaston täydennystilauksen koko on aina kaksi kertaa tuotteen tilauskynnys
 * tiettyä tuotetta voi olla ostoskorissa korkeintaan 99 kpl
+* kaikkien merkkijonojen maksimipituus 144 merkkiä
 * kaikki ajat UTC
+* käyttäjän poistaminen poistaa myös hänen laskunsa sekä kaikki merkinnät hänen tilaamistaan tuotteista
+* tuotteen poistaminen poistaa myös kaikki merkinnät siitä, paljonko kyseistä tuotetta on tilattu
 
 ### Puuttuvat ominaisuudet
 * tuotekategoriat
 * salasanojen tallennus salatussa muodossa
-* erillinen asetussivu esim. sivutukselle, viivästyskorolle, erääntymisajalle ja aikavyöhykkeelle
+* erillinen asetussivu esim. sivutukselle, viivästyskorolle, erääntymisajalle sekä aikavyöhykkeelle
 * indeksien käyttö
 
 ### Omat kokemukset

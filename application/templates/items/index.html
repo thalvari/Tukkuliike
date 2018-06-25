@@ -17,7 +17,7 @@
             {% endif %}
             <th>Lisätty</th>
             <th style="width: 1%"></th>
-            {% if current_user.is_authenticated %}
+            {% if current_user.role == "ADMIN" %}
                 <th style="width: 1%"></th>
                 <th style="width: 1%"></th>
             {% endif %}
@@ -38,7 +38,7 @@
                         <button type="submit" class="btn btn-primary btn-sm">Näytä</button>
                     </form>
                 </td>
-                {% if current_user.is_authenticated and current_user.role == "ADMIN" %}
+                {% if current_user.role == "ADMIN" %}
                     <td>
                         <form action="{{ url_for('items_edit_form', item_id=item.id) }}">
                             <button type="submit" class="btn btn-primary btn-sm">Muokkaa</button>
