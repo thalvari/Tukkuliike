@@ -28,8 +28,9 @@ def user_items_ordered_index():
 @app.route("/user_items/new/<item_id>", methods=["POST"])
 @login_required(role="CUSTOMER")
 def user_items_create(item_id):
+    item_id = int(item_id)
     form = UserItemCheckForm(request.form)
-    form.item_id = int(item_id)
+    form.item_id = item_id
     if not form.validate():
         return render_template("items/view.html", form=form, item=Item.query.get(item_id))
     user_item = UserItem(item_id, current_user.id, form.quantity.data)

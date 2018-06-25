@@ -3,6 +3,12 @@
 ### Tietokantakaavio
 ![](/documentation/tietokantakaavio.jpg)
 
+### Normalisointi
+* kaikki tietokantataulut ovat ensimmäisessä normaalimuodossa, koska sarakkeiden arvot eivät sisällä listoja, eivät muodosta toistuvia ryhmiä, yhden sarakkeen arvot ovat samaa tyyppiä, sarakkeiden nimet ovat uniikkeja kussakin taulussa ja sarakkeiden/rivien järjestys ei vaikuta tietokantataulun toimintaan
+* kaikki tietokantataulut ovat toisessa normaalimuodossa, koska ne ovat ensimmäisessä normaalimuodossa ja jokaisessa taulussa on erikseen määritelty pääavain
+* taulut invoice ja user_item ovat kolmannessa normaalimuodossa, koska ne ovat toisessa normaalimuodossa ja niiden sarakkeet eivät ole transitiivisesti riippuvaisia taulun pääavaimesta
+* taulut item ja account eivät ole kolmannessa normaalimuodossa, koska käytettävyyden kannalta on järkevää, että käyttäjänimet sekä tuotteiden nimet ovat uniikkeja
+
 ### CREATE TABLE -lauseet
 ```
 CREATE TABLE account (
@@ -55,4 +61,5 @@ CREATE TABLE user_item (
 	FOREIGN KEY(item_id) REFERENCES item (id), 
 	FOREIGN KEY(user_id) REFERENCES account (id), 
 	CHECK (ordered IN (0, 1))
+)
 ```
